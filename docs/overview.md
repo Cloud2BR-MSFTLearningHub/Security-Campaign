@@ -74,9 +74,9 @@ or store customer answers on a server. State exists only in the current browser
 page. Print, Markdown, and JSON exports are generated locally.
 
 !!! warning
-	A recommendation is not evidence of configuration, entitlement, compliance,
-	or product availability. Validate all production decisions with tenant evidence,
-	commercial agreements, regional requirements, and official Microsoft guidance.
+ A recommendation is not evidence of configuration, entitlement, compliance,
+ or product availability. Validate all production decisions with tenant evidence,
+ commercial agreements, regional requirements, and official Microsoft guidance.
 
 ## Get started
 

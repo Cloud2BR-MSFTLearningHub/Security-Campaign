@@ -94,7 +94,9 @@
     document.getElementById("campaign-results-content").innerHTML = views[state.activeView](results, summary);
     document.querySelectorAll("[data-view]").forEach((button) => button.setAttribute("aria-selected", button.dataset.view === state.activeView));
     document.querySelectorAll("[data-audience]").forEach((button) => button.setAttribute("aria-pressed", button.dataset.audience === state.audience));
-    document.getElementById("campaign-completion").textContent = `${Object.values(state.answers).filter((answer) => answer !== "unknown").length} of ${catalog.questions.length} conditions confirmed`;
+    const confirmed = Object.values(state.answers).filter((answer) => answer !== "unknown").length;
+    document.getElementById("campaign-completion").textContent = `${confirmed} of ${catalog.questions.length} conditions confirmed`;
+    document.getElementById("campaign-progress-fill").style.width = `${(confirmed / catalog.questions.length) * 100}%`;
   }
 
   function exportPayload() {
@@ -118,7 +120,7 @@
   }
 
   app.innerHTML = `<section class="campaign-intro"><div><p class="eyebrow">Microsoft cloud security decision map</p><h2>From current conditions to a defensible campaign.</h2><p>Choose the closest answers. Unknowns stay visible as discovery work, while the roadmap orders prerequisites and links to the specialist setup hubs.</p></div><div class="campaign-version"><span>Rule catalog</span><strong>v${catalog.version}</strong><small>Runs locally in this browser</small></div></section>
-    <div class="campaign-map"><aside class="campaign-assessment"><div class="panel-heading"><div><p class="eyebrow">Current state</p><h2>Map the environment</h2></div><button class="icon-button" id="campaign-reset" title="Reset assessment" aria-label="Reset assessment">${icon("reset")}</button></div><p id="campaign-completion" class="completion"></p><form id="campaign-form">${renderQuestions()}</form></aside>
+    <div class="campaign-map"><aside class="campaign-assessment"><div class="panel-heading"><div><p class="eyebrow">Current state</p><h2>Map the environment</h2></div><button class="icon-button" id="campaign-reset" title="Reset assessment" aria-label="Reset assessment">${icon("reset")}</button></div><div class="completion"><div class="completion-track"><div id="campaign-progress-fill" class="completion-fill"></div></div><p id="campaign-completion" class="completion-text"></p></div><form id="campaign-form">${renderQuestions()}</form></aside>
     <main class="campaign-results"><div class="panel-heading result-heading"><div><p class="eyebrow">Recommendation engine</p><h2>Your campaign</h2></div><div class="audience-toggle" aria-label="Result detail"><button data-audience="executive" aria-pressed="true">Executive</button><button data-audience="technical" aria-pressed="false">Technical</button></div></div>
     <div class="result-toolbar"><div class="result-tabs" role="tablist" aria-label="Result views"><button data-view="summary" aria-selected="true">Summary</button><button data-view="matrix">Matrix</button><button data-view="tracks">Tracks</button><button data-view="roadmap">Roadmap</button></div><div class="export-actions"><button id="campaign-print">${icon("print")}<span>Print</span></button><button id="campaign-markdown">${icon("download")}<span>Markdown</span></button><button id="campaign-json">${icon("download")}<span>JSON</span></button></div></div><div id="campaign-results-content"></div></main></div>`;
 
