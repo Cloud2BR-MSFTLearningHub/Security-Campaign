@@ -106,15 +106,10 @@
 /* hide the page title and org header above the hero on the campaign page */
 .md-content:has(.campaign-app) h1,
 .md-content:has(.campaign-app) .md-typeset h1 + p + p + p { display: none; }
-.campaign-app { color: var(--campaign-ink); margin: 1.5rem 0 3rem; scroll-margin-top: 4.5rem; }
-.campaign-intro { align-items: end; background: var(--campaign-ink); color: #fff; display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr) auto; min-height: 15rem; overflow: hidden; padding: clamp(1.5rem, 4vw, 3.25rem); position: relative; }
-.campaign-intro > * { position: relative; z-index: 1; }
-.campaign-intro h2 { color: #fff; font-size: clamp(1.7rem, 3vw, 2.65rem); margin: .25rem 0 .75rem; max-width: 22ch; }
-.campaign-intro p:not(.eyebrow) { color: #d7e2e6; margin: 0; max-width: 68ch; }
+.campaign-app { color: var(--campaign-ink); margin: .75rem 0 3rem; scroll-margin-top: 4.5rem; }
 .eyebrow { color: var(--campaign-cyan); font-size: .65rem; font-weight: 700; letter-spacing: .08em; margin: 0; text-transform: uppercase; }
-.campaign-intro .eyebrow { color: #7fe1dc; }
 .campaign-version { display: none; }
-.campaign-map { align-items: start; display: grid; gap: 1.5rem; grid-template-columns: minmax(19rem, 28rem) minmax(0, 1fr); margin-top: 1.5rem; }
+.campaign-map { align-items: start; display: grid; gap: 1.5rem; grid-template-columns: minmax(19rem, 28rem) minmax(0, 1fr); }
 .campaign-assessment, .campaign-results { background: #fff; border: 1px solid var(--campaign-line); min-width: 0; }
 .campaign-assessment { max-height: calc(100vh - 6rem); overflow: auto; position: sticky; top: 4rem; }
 .panel-heading { align-items: center; border-bottom: 1px solid var(--campaign-line); display: flex; justify-content: space-between; padding: 1.15rem 1.25rem; }
@@ -212,7 +207,6 @@
   .campaign-assessment { max-height: none; position: static; }
 }
 @media screen and (max-width: 44rem) {
-  .campaign-intro { grid-template-columns: 1fr; }
   .campaign-version { width: auto; }
   .campaign-options, .metric-grid, .priority-grid, .track-grid { grid-template-columns: 1fr; }
   .result-toolbar, .result-heading { align-items: stretch; flex-direction: column; }
