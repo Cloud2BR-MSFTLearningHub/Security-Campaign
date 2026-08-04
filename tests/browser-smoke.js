@@ -14,6 +14,8 @@ const { chromium } = require("playwright");
 
   await page.goto("http://127.0.0.1:8000/", { waitUntil: "domcontentloaded" });
   await page.locator(".campaign-map").waitFor();
+  assert.equal(await page.locator(".campaign-question").count(), 15);
+  assert.equal(await page.locator(".question-group").count(), 6);
   await page.check('input[name="m365"][value="e5"]');
   await page.check('input[name="identity"][value="hybrid"]');
   await page.check('input[name="identityBaseline"][value="partial"]');

@@ -18,8 +18,12 @@
     return !conditions || Object.entries(conditions).every(([key, values]) => values.includes(answers[key]));
   }
 
+  function matchesAny(answers, conditions) {
+    return !conditions || Object.entries(conditions).some(([key, values]) => values.includes(answers[key]));
+  }
+
   function evaluate(answers, catalog) {
-    const applicable = catalog.recommendations.filter((item) => matches(answers, item.when));
+    const applicable = catalog.recommendations.filter((item) => matches(answers, item.when) && matchesAny(answers, item.whenAny));
     const applicableIds = new Set(applicable.map((item) => item.id));
 
     return applicable.map((item) => {

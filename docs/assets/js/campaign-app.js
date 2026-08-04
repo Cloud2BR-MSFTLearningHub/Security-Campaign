@@ -28,8 +28,11 @@
   }
 
   function renderQuestions() {
-    return catalog.questions.map((question, index) => `
-      <fieldset class="campaign-question">
+    let currentGroup = "";
+    return catalog.questions.map((question, index) => {
+      const group = question.group !== currentGroup ? `<div class="question-group">${escapeHtml(question.group)}</div>` : "";
+      currentGroup = question.group;
+      return `${group}<fieldset class="campaign-question">
         <legend><span>${String(index + 1).padStart(2, "0")}</span>${escapeHtml(question.label)}</legend>
         <p>${escapeHtml(question.help)}</p>
         <div class="campaign-options">
@@ -39,7 +42,8 @@
               <span>${escapeHtml(label)}</span>
             </label>`).join("")}
         </div>
-      </fieldset>`).join("");
+      </fieldset>`;
+    }).join("");
   }
 
   function statusLabel(status) {
