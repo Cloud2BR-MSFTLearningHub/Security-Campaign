@@ -1,9 +1,8 @@
-# Update site_name, site_url, repo_url, and repo_name for each new repository.
-site_name: Documentation Hub
-site_description: Overview and setup documentation for this project.
-site_url: https://cloud2br-msftlearninghub.github.io/org-repo-template/
-repo_url: https://github.com/Cloud2BR-MSFTLearningHub/org-repo-template
-repo_name: Cloud2BR-MSFTLearningHub/org-repo-template
+site_name: Security Campaign
+site_description: Build an ordered Microsoft cloud security roadmap from customer conditions and goals.
+site_url: https://cloud2br-msftlearninghub.github.io/Security-Campaign/
+repo_url: https://github.com/Cloud2BR-MSFTLearningHub/Security-Campaign
+repo_name: Cloud2BR-MSFTLearningHub/Security-Campaign
 docs_dir: docs
 site_dir: site
 copyright: Copyright &copy; 2026 <a href="https://github.com/Cloud2BR-MSFTLearningHub" target="_blank" rel="noopener">Cloud2BR OSS - Learning Hub</a>
@@ -17,6 +16,9 @@ theme:
     - navigation.top
     - search.highlight
     - content.code.copy
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
   palette:
     scheme: default
     primary: blue
@@ -37,6 +39,9 @@ extra_css:
 extra_javascript:
   - assets/js/logo-link.js
   - assets/js/external-links.js
+  - assets/js/campaign-data.js
+  - assets/js/recommendation-engine.js
+  - assets/js/campaign-app.js
 extra:
   generator: false
   social:
@@ -44,5 +49,5 @@ extra:
       link: https://github.com/Cloud2BR-MSFTLearningHub
       name: Cloud2BR OSS - Learning Hub
 nav:
-  - Home: index.md
-  - Overview: overview.md
+  - Decision map: index.md
+  - Methodology: overview.md
