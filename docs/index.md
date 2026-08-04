@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Security Campaign
 
 Atlanta, USA
