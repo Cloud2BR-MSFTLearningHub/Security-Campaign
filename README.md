@@ -13,14 +13,6 @@ Last updated: 2026-08-04
 > an eligibility matrix, domain campaign tracks, and a phased implementation
 > roadmap linked to eight specialist Cloud2BR learning hubs.
 
-## Overview
-
-![Decision map assessment and executive summary](images/decision-map-desktop.png)
-
-![Technical roadmap view across all six campaign phases](images/decision-map-roadmap.png)
-
-<img src="images/decision-map-mobile.png" alt="Decision map on a mobile viewport" width="320">
-
 ```mermaid
 flowchart LR
     A["1. Discover and validate"] --> B["2. Establish foundations"]
@@ -48,13 +40,6 @@ node tests/source-links.test.js
 python -m mkdocs serve
 ```
 
-Open `http://127.0.0.1:8000/Security-Campaign/`. The site is static; Node is
-needed only for tests.
-
-To regenerate the README screenshots after a UI change, install Playwright's
-browser once (`npx playwright install chromium`), keep `mkdocs serve` running,
-and run `node scripts/capture-screenshots.js`.
-
 ## Project structure
 
 | Path | Purpose |
@@ -76,11 +61,9 @@ and run `node scripts/capture-screenshots.js`.
 5. Confirm output still distinguishes discovery, prerequisites, recommendations,
    and established capabilities.
 
-The specialist repositories remain authoritative. Link to their published pages;
-do not copy setup guidance into the catalog.
-
-## Scope
-
-This version is an advisory self-assessment. Authenticated tenant discovery,
-server-side customer storage, and compliance certification are intentionally out
-of scope.
+<!-- START BADGE -->
+<div align="center">
+  <img src="https://img.shields.io/badge/Total%20views-1314-limegreen" alt="Total views">
+  <p>Refresh Date: 2026-04-08</p>
+</div>
+<!-- END BADGE -->
