@@ -3,10 +3,10 @@ name: Publish Documentation to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: [docs/**, mkdocs.yml, requirements.txt, .github/workflows/deploy-github-pages.yml]
+    paths: [docs/**, tests/**, mkdocs.yml, requirements.txt, .github/workflows/deploy-github-pages.yml]
   pull_request:
     branches: [main]
-    paths: [docs/**, mkdocs.yml, requirements.txt, .github/workflows/deploy-github-pages.yml]
+    paths: [docs/**, tests/**, mkdocs.yml, requirements.txt, .github/workflows/deploy-github-pages.yml]
   workflow_dispatch:
 
 permissions:
@@ -27,7 +27,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: node tests/recommendation-engine.test.js
+      - run: node tests/source-links.test.js
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
