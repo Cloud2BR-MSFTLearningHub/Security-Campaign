@@ -169,6 +169,7 @@
 .status-pill.status-discovery, .status-discovery .status-pill { background: #fff2d5; color: #815000; }
 .status-pill.status-prerequisite, .status-prerequisite .status-pill { background: #fde9e5; color: #96372e; }
 .status-pill.status-established, .status-established .status-pill { background: #e3f3ea; color: #216b49; }
+.status-pill.status-later { background: #edf1f3; color: #53636d; }
 .result-table-wrap { overflow-x: auto; }
 .md-typeset .result-table { border-collapse: collapse; font-size: .66rem; min-width: 44rem; width: 100%; }
 .result-table th { background: var(--campaign-ink); color: #fff; text-align: left; }
@@ -181,6 +182,24 @@
 .track-step > span { align-items: center; background: var(--campaign-ink); border-radius: 50%; color: #fff; display: flex; flex: 0 0 1.7rem; font-family: "IBM Plex Mono", monospace; height: 1.7rem; justify-content: center; }
 .track-step strong, .track-step small { display: block; font-size: .65rem; }
 .track-step small { color: var(--campaign-muted); }
+.talk-tracks { display: grid; gap: 1rem; }
+.talk-tracks-intro { border-bottom: 1px solid var(--campaign-line); padding-bottom: 1.25rem; }
+.talk-tracks-intro h2 { font-size: 1.55rem; margin: .25rem 0 .45rem; max-width: 28ch; }
+.talk-tracks-intro > p:last-child { color: var(--campaign-muted); margin: 0; max-width: 78ch; }
+.talk-track-card { border: 1px solid var(--campaign-line); border-left: 4px solid var(--campaign-cyan); padding: 1.1rem; }
+.talk-track-card > header { align-items: flex-start; display: flex; gap: 1rem; justify-content: space-between; }
+.talk-track-card h3 { font-size: 1.15rem; margin: .2rem 0 0; }
+.talk-track-outcome { background: #edf7f6; border-left: 2px solid var(--campaign-cyan); margin: 1rem 0; padding: .65rem .8rem; }
+.talk-track-outcome strong, .talk-track-body h4 { font-size: .65rem; text-transform: uppercase; }
+.talk-track-outcome p { color: #25414b; font-size: .75rem; margin: .25rem 0 0; }
+.talk-track-body { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.35fr) minmax(12rem, .65fr); }
+.talk-track-body section, .talk-track-body aside { min-width: 0; }
+.talk-track-body h4 { color: var(--campaign-cyan); margin: 0 0 .45rem; }
+.talk-track-body ol { color: var(--campaign-ink); font-size: .72rem; margin: 0; padding-left: 1.25rem; }
+.talk-track-body li + li { margin-top: .4rem; }
+.talk-track-body aside { border-left: 1px solid var(--campaign-line); padding-left: 1.25rem; }
+.talk-track-body aside p { color: var(--campaign-muted); font-size: .68rem; margin: 0 0 1rem; }
+.talk-track-card > a { display: inline-block; font-size: .66rem; font-weight: 700; margin-top: .2rem; }
 .roadmap-phase { display: grid; gap: 1rem; grid-template-columns: 2.5rem minmax(0, 1fr); position: relative; }
 .roadmap-phase:not(:last-child)::before { background: var(--campaign-line); content: ""; height: 100%; left: 1.2rem; position: absolute; top: 1.8rem; width: 1px; }
 .phase-marker { position: relative; z-index: 1; }
@@ -202,6 +221,9 @@
   .result-tabs button + button { border-left: 1px solid var(--campaign-line); }
   .export-actions { display: grid; grid-template-columns: repeat(3, 1fr); }
   .export-actions button { justify-content: center; }
+  .talk-track-card > header, .talk-track-body { display: block; }
+  .talk-track-card > header .status-pill { margin-top: .65rem; }
+  .talk-track-body aside { border-left: 0; border-top: 1px solid var(--campaign-line); margin-top: 1rem; padding: 1rem 0 0; }
 }
 @media print {
   .md-header, .md-sidebar, .md-footer, .campaign-assessment, .result-toolbar, .audience-toggle, .campaign-intro { display: none !important; }

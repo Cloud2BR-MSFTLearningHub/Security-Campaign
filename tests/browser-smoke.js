@@ -31,6 +31,11 @@ const { chromium } = require("playwright");
   assert.equal(await page.locator(".roadmap-phase").count(), 6);
   assert.ok(await page.getByText("Next action", { exact: true }).count() >= 1);
 
+  await page.click('[data-view="talkTracks"]');
+  assert.equal(await page.locator(".talk-track-card").count(), 7);
+  assert.ok(await page.getByText("Ask the customer", { exact: true }).count() >= 7);
+  assert.ok(await page.getByText("Microsoft Security Copilot", { exact: true }).count() >= 1);
+
   const markdownDownload = page.waitForEvent("download");
   await page.click("#campaign-markdown");
   assert.equal((await markdownDownload).suggestedFilename(), "security-campaign-assessment.md");

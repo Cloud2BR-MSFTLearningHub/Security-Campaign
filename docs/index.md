@@ -9,7 +9,7 @@ Last updated: 2026-08-04
 
 ----------
 
-Map the customer environment, expose prerequisites, and build an ordered Microsoft cloud security roadmap.
+Map the customer environment, expose prerequisites, and build an ordered Microsoft cloud security roadmap. Use the **Talk tracks** view to lead focused conversations on Entra, Intune, Defender, Sentinel, Purview, Security Copilot, and Agent 365.
 
 <noscript>
 This decision map requires JavaScript. Enable JavaScript to run the assessment, or review the [methodology](overview/).
