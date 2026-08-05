@@ -14,47 +14,61 @@ Use these decision maps to turn a customer environment into the security convers
 
 Use this decision map to identify which security areas apply to the customer environment, then open the matching map for a detailed conversation.
 
-<div class="decision-lanes" markdown>
-<div class="lane lane-identity">
-<span class="lane-eyebrow">01 · Identity and access</span>
-<p class="lane-question">Who or what needs access?</p>
-<div class="lane-step"><strong>Is MFA enforced for admins?</strong><span>No → start with Conditional Access and MFA</span></div>
-<div class="lane-step"><strong>Are admin roles standing?</strong><span>Yes → move to just-in-time access with PIM</span></div>
-<div class="lane-step"><strong>Do apps or agents need identity?</strong><span>Yes → govern workload identities</span></div>
-<a class="lane-link" href="identity-access/">Open identity map →</a>
+<div class="diagram-frame" markdown>
+```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 32, 'rankSpacing': 65, 'curve': 'basis'}, 'themeVariables': {'fontSize': '15px'}}}%%
+flowchart LR
+    Start(["Start:\nwhat's in scope?"]):::start --> ID{Identity\nand access}:::idNode
+    Start --> EP{Endpoints\nand devices}:::epNode
+    Start --> CL{Cloud\nworkloads}:::clNode
+    Start --> DA{Data\nand AI}:::daNode
+    Start --> SO{Security\noperations}:::soNode
+
+    ID --> ID_Q1{MFA enforced\nfor admins?}:::idNode
+    ID_Q1 -->|No| ID_R1[["Start with Conditional\nAccess + MFA"]]:::idNode
+    ID_Q1 -->|Yes| ID_Q2{Standing admin\nroles?}:::idNode
+    ID_Q2 -->|Yes| ID_R2[["Move to PIM\njust-in-time access"]]:::idNode
+    ID_Q2 -->|No| ID_R3[["Govern app and\nagent identities"]]:::idNode
+
+    EP --> EP_Q1{Devices\nenrolled?}:::epNode
+    EP_Q1 -->|No| EP_R1[["Start with Intune\nenrollment"]]:::epNode
+    EP_Q1 -->|Yes| EP_Q2{BYOD accessing\ndata?}:::epNode
+    EP_Q2 -->|Yes| EP_R2[["Apply BYOD app\nprotection"]]:::epNode
+    EP_Q2 -->|No| EP_R3[["Expand Defender for\nEndpoint coverage"]]:::epNode
+
+    CL --> CL_Q1{What services\nrun?}:::clNode
+    CL_Q1 -->|VMs / servers| CL_R1[["Defender for\nServers"]]:::clNode
+    CL_Q1 -->|Containers| CL_R2[["Defender for\nContainers"]]:::clNode
+    CL_Q1 -->|Databases / storage| CL_R3[["Defender for Databases\n+ Storage"]]:::clNode
+    CL_Q1 -->|Internet-facing APIs| CL_R4[["API security +\nworkload identities"]]:::clNode
+
+    DA --> DA_Q1{Sensitive data\nnamed?}:::daNode
+    DA_Q1 -->|No| DA_R1[["Run data taxonomy\nworkshop"]]:::daNode
+    DA_Q1 -->|Yes| DA_Q2{DLP\nenforced?}:::daNode
+    DA_Q2 -->|No| DA_R2[["Apply Purview labels\n+ DLP"]]:::daNode
+    DA_Q2 -->|Yes| DA_R3[["Set agent governance\n+ audit logging"]]:::daNode
+
+    SO --> SO_Q1{Logs collected\ncentrally?}:::soNode
+    SO_Q1 -->|No| SO_R1[["Close gaps with\nSentinel"]]:::soNode
+    SO_Q1 -->|Yes| SO_Q2{Alert ownership\nclear?}:::soNode
+    SO_Q2 -->|No| SO_R2[["Define escalation\n+ playbooks"]]:::soNode
+    SO_Q2 -->|Yes| SO_R3[["Introduce Security\nCopilot"]]:::soNode
+
+    classDef start fill:#003366,color:#fff,stroke:#003366,stroke-width:1px;
+    classDef idNode fill:#eaf2fa,stroke:#006f84,color:#0b3550;
+    classDef epNode fill:#eef4e7,stroke:#4c6f28,color:#233611;
+    classDef clNode fill:#f1ecf8,stroke:#7454a4,color:#33234a;
+    classDef daNode fill:#fdf1e2,stroke:#a25d00,color:#4a2c00;
+    classDef soNode fill:#fbeaee,stroke:#a13f55,color:#4a1926;
+```
 </div>
-<div class="lane lane-endpoint">
-<span class="lane-eyebrow">02 · Endpoints and devices</span>
-<p class="lane-question">Are endpoints accessing company data?</p>
-<div class="lane-step"><strong>Are corporate devices enrolled?</strong><span>No → start with Intune enrollment and compliance</span></div>
-<div class="lane-step"><strong>Do personal devices access data?</strong><span>Yes → apply BYOD app protection policies</span></div>
-<div class="lane-step"><strong>Are endpoint alerts investigated?</strong><span>No → expand Defender for Endpoint and SOC coverage</span></div>
-<a class="lane-link" href="endpoint-map/">Open endpoint map →</a>
-</div>
-<div class="lane lane-cloud">
-<span class="lane-eyebrow">03 · Cloud workloads</span>
-<p class="lane-question">Are cloud services in scope?</p>
-<div class="lane-step"><strong>What services are running?</strong><span>VMs, containers, databases, or storage → matching Defender plan</span></div>
-<div class="lane-step"><strong>Are APIs internet-facing?</strong><span>Yes → review API security and workload identities</span></div>
-<div class="lane-step"><strong>Is the estate multi-cloud or hybrid?</strong><span>Yes → unify posture with Defender for Cloud</span></div>
-<a class="lane-link" href="cloud-workload-map/">Open cloud map →</a>
-</div>
-<div class="lane lane-data">
-<span class="lane-eyebrow">04 · Data and AI</span>
-<p class="lane-question">Is sensitive data or AI involved?</p>
-<div class="lane-step"><strong>Can the customer name sensitive data?</strong><span>No → run a data taxonomy workshop first</span></div>
-<div class="lane-step"><strong>Are DLP policies enforced?</strong><span>No → apply Purview sensitivity labels and DLP</span></div>
-<div class="lane-step"><strong>Will agents access internal data?</strong><span>Yes → set agent governance and audit logging</span></div>
-<a class="lane-link" href="data-ai-map/">Open data and AI map →</a>
-</div>
-<div class="lane lane-operations">
-<span class="lane-eyebrow">05 · Security operations</span>
-<p class="lane-question">Does the customer need detection or response?</p>
-<div class="lane-step"><strong>Are key logs collected centrally?</strong><span>No → close gaps with Sentinel log sources</span></div>
-<div class="lane-step"><strong>Is alert ownership clear and tested?</strong><span>No → define escalation paths and playbooks</span></div>
-<div class="lane-step"><strong>Are analysts stuck on manual tasks?</strong><span>Yes → introduce Security Copilot and automation</span></div>
-<a class="lane-link" href="security-operations-map/">Open operations map →</a>
-</div>
+
+<div class="diagram-legend" markdown>
+<a class="legend-chip legend-identity" href="identity-access/"><span></span>Identity and access</a>
+<a class="legend-chip legend-endpoint" href="endpoint-map/"><span></span>Endpoints and devices</a>
+<a class="legend-chip legend-cloud" href="cloud-workload-map/"><span></span>Cloud workloads</a>
+<a class="legend-chip legend-data" href="data-ai-map/"><span></span>Data and AI</a>
+<a class="legend-chip legend-operations" href="security-operations-map/"><span></span>Security operations</a>
 </div>
 
 ## Start with the customer environment
