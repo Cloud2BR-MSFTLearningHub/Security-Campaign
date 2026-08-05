@@ -40,7 +40,7 @@
 **Why it matters:** Servers are high-value targets. An attacker who gains access to a server can steal data, run code, and pivot to other systems. Keeping servers patched and monitored is essential.
 
 **Common scenario:**
-A server running a web application gets compromised by an unpatched vulnerability. Attackers gain code execution, install persistence, and exfiltrate customer data—all before the organization detects it.
+A server running a web application gets compromised by an unpatched vulnerability. Attackers gain code execution, install persistence, and exfiltrate customer data, all before the organization detects it.
 
 **What to examine:**
 - Which operating systems and versions are running?

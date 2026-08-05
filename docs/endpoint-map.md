@@ -1,6 +1,6 @@
 # Endpoint and Device Map
 
-**Why this matters:** Endpoints (laptops, phones, tablets, shared devices) are where users access company data and authenticate their identities. If an endpoint is compromised, attackers gain access to data, credentials, and the ability to move laterally into cloud services and networks. Managing endpoints—verifying they're kept up to date, compliant with policies, and free of malware—is critical.
+**Why this matters:** Endpoints (laptops, phones, tablets, shared devices) are where users access company data and authenticate their identities. If an endpoint is compromised, attackers gain access to data, credentials, and the ability to move laterally into cloud services and networks. Managing endpoints, verifying they are kept up to date, compliant with policies, and free of malware, is critical.
 
 **What this covers:** Device enrollment and management (ensuring devices meet security standards), compliance verification (is this device allowed to access sensitive data?), and endpoint protection (detecting and responding to threats).
 
