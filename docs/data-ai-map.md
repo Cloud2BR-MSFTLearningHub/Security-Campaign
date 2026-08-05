@@ -32,33 +32,75 @@
 
 ## Decision points
 
-**1. Can the customer name the data that creates the most business or regulatory risk?**
-- **Why it matters:** If you cannot name it, you cannot classify it, protect it, or audit access to it. A data governance program starts with understanding what matters most.
-- **If no:** Begin with a data-owner workshop. Ask: "If customer credit cards were stolen, what's the business impact?" "If trade secrets leaked, how much would that cost?" "What regulatory data does the organization hold (health, financial, personal)?" Use this to prioritize.
-- **If yes:** Document the data types, where they live, who accesses them, retention requirements, and regulatory obligations. Create a simple matrix: data type × business impact × regulation.
+### 1. Can the customer name the data that creates the most business or regulatory risk?
 
-**2. Are sensitivity labels and DLP policies tested in simulation before enforcement?**
-- **Why it matters:** DLP blocks activity. If a policy is too broad, it will block legitimate business work and frustrate users. If it's too narrow, it won't protect sensitive data. Testing first in report-only mode lets you see real-world impact before enforcement.
-- **Common scenario:** DLP blocks sending any email with a credit card number. But legitimate business (customer billing confirmation, payment receipt) sends emails with card numbers. Without testing, the policy either fails (too broad) or users find workarounds (too narrow).
-- **If no:** Implement policies in report-only mode for 2-4 weeks. Review logs to see how many times the policy would have blocked legitimate activity. Refine the policy (perhaps cardholder data is OK in certain contexts or to certain recipients), then enforce.
-- **If yes:** Document the testing process. Periodically review policy hits to ensure they're still detecting the right risks and not creating unnecessary friction.
+**Why it matters:** If you cannot name it, you cannot classify it, protect it, or audit access to it. A data governance program starts with understanding what matters most.
 
-**3. Does sensitive data leave Microsoft 365 through endpoints, SaaS, or cloud storage?**
-- **Why it matters:** Data protection is only effective if it follows the data. If sensitive files are stored in Microsoft 365 with DLP, but users download them, print them, or email them to personal accounts, the protection is bypassed.
-- **Common scenario:** A file is classified as "Confidential - Customer Data." DLP prevents sending it to external email addresses. But a user downloads the file, uploads it to personal Dropbox, and shares the Dropbox link externally. DLP never sees it.
-- **What to examine:** Map the data flow: Microsoft 365 (stored) → downloaded to endpoint (email, backup, personal cloud)? Sent to SaaS app? → cloud storage (Azure, AWS)?  Apply controls at each step: device DLP, app-based protection, cloud storage public access blocking.
-- **If yes:** Trace the full data path. Add DLP controls to endpoints (prevent download to USB, prevent upload to untrusted cloud storage). Implement app-level protection (Intune MAM) for mobile devices. Restrict cloud storage access via Conditional Access.
+**If no:**
+- Begin with a data-owner workshop.
+- Ask: "If customer credit cards were stolen, what's the business impact?" "If trade secrets leaked, how much would that cost?" "What regulatory data does the organization hold (health, financial, personal)?"
+- Use this to prioritize.
 
-**4. Will an agent or copilot access internal data or act through connected tools?**
-- **Why it matters:** Agents are powerful but new. An agent with overly broad access or missing audit controls can expose data or perform actions no one intended.
-- **Common scenario:** A finance agent is given access to all cost centers to provide budget reports. An attacker compromises the agent's identity and uses it to approve high-value payments on behalf of executives. No approval workflow or audit trail.
-- **If yes:** Before deploying:
-  - Define data boundaries (which databases, files, SaaS apps can the agent query?).
-  - Use Entra workload identities so the agent has a least-privilege identity (not a shared admin account).
-  - Require approval for sensitive actions (approve payments over $X, escalate to manager).
-  - Log all agent activity in Sentinel. Review audit logs weekly.
-  - Implement a versioning and rollback process (can you revert if an agent misbehaves?).
-- **If no:** Still plan for it. Agents are becoming common; governance should be in place before broad adoption.
+**If yes:**
+- Document the data types, where they live, who accesses them, retention requirements, and regulatory obligations.
+- Create a simple matrix: data type × business impact × regulation.
+
+---
+
+### 2. Are sensitivity labels and DLP policies tested in simulation before enforcement?
+
+**Why it matters:** DLP blocks activity. If a policy is too broad, it will block legitimate business work and frustrate users. If it's too narrow, it won't protect sensitive data. Testing first in report-only mode lets you see real-world impact before enforcement.
+
+**Common scenario:**
+DLP blocks sending any email with a credit card number. But legitimate business (customer billing confirmation, payment receipt) sends emails with card numbers. Without testing, the policy either fails (too broad) or users find workarounds (too narrow).
+
+**If no:**
+- Implement policies in report-only mode for 2-4 weeks.
+- Review logs to see how many times the policy would have blocked legitimate activity.
+- Refine the policy (perhaps cardholder data is OK in certain contexts or to certain recipients).
+- Then enforce.
+
+**If yes:**
+- Document the testing process.
+- Periodically review policy hits to ensure they're still detecting the right risks and not creating unnecessary friction.
+
+---
+
+### 3. Does sensitive data leave Microsoft 365 through endpoints, SaaS, or cloud storage?
+
+**Why it matters:** Data protection is only effective if it follows the data. If sensitive files are stored in Microsoft 365 with DLP, but users download them, print them, or email them to personal accounts, the protection is bypassed.
+
+**Common scenario:**
+A file is classified as "Confidential - Customer Data." DLP prevents sending it to external email addresses. But a user downloads the file, uploads it to personal Dropbox, and shares the Dropbox link externally. DLP never sees it.
+
+**What to examine:**
+- Map the data flow: Microsoft 365 (stored) → downloaded to endpoint → sent to SaaS → cloud storage (Azure, AWS).
+- Apply controls at each step: device DLP, app-based protection, cloud storage public access blocking.
+
+**If yes:**
+- Trace the full data path.
+- Add DLP controls to endpoints (prevent download to USB, prevent upload to untrusted cloud storage).
+- Implement app-level protection (Intune MAM) for mobile devices.
+- Restrict cloud storage access via Conditional Access.
+
+---
+
+### 4. Will an agent or copilot access internal data or act through connected tools?
+
+**Why it matters:** Agents are powerful but new. An agent with overly broad access or missing audit controls can expose data or perform actions no one intended.
+
+**Common scenario:**
+A finance agent is given access to all cost centers to provide budget reports. An attacker compromises the agent's identity and uses it to approve high-value payments on behalf of executives. No approval workflow or audit trail.
+
+**If yes (before deploying):**
+- Define data boundaries (which databases, files, SaaS apps can the agent query?).
+- Use Entra workload identities so the agent has a least-privilege identity (not a shared admin account).
+- Require approval for sensitive actions (approve payments over $X, escalate to manager).
+- Log all agent activity in Sentinel. Review audit logs weekly.
+- Implement versioning and rollback (can you revert if an agent misbehaves?).
+
+**If no:**
+- Still plan for it. Agents are becoming common; governance should be in place before broad adoption.
 
 ## Bring to the discussion
 

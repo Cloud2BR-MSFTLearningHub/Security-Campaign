@@ -28,40 +28,110 @@
 
 ## Decision points
 
-**1. Is phishing-resistant MFA enforced for high-risk users and administrators?**
-- **Why it matters:** MFA (multi-factor authentication) adds a second verification factor. Phishing-resistant MFA (like FIDO2 keys) cannot be intercepted by phishing. Administrators are the highest-value targets; they should have the strongest authentication.
-- **If no:** Start with Microsoft Entra authentication methods and Conditional Access. Enable MFA for administrators first, then extend to users accessing sensitive data.
-- **If yes:** Verify that passwordless sign-in (Windows Hello, FIDO2) is available and track adoption over time.
+### 1. Is phishing-resistant MFA enforced for high-risk users and administrators?
 
-**2. Does access depend on device trust, risk level, location, or data sensitivity?**
-- **Why it matters:** Conditional Access can block risky sign-ins (e.g., from unexpected locations, unmanaged devices, or amid sign-in attempts that show credential compromise indicators). This prevents attackers from using stolen credentials.
-- **If no:** Identify high-risk scenarios (financial apps, customer data, healthcare records) and build Conditional Access rules in report-only mode first. Monitor patterns before enforcing.
-- **If yes:** Review existing policies. Look for unintended gaps (e.g., does admin access from unusual locations require approval?) and verify they're not so strict that users bypass them or help desk gets flooded.
+**Why it matters:** MFA (multi-factor authentication) adds a second verification factor. Phishing-resistant MFA (like FIDO2 keys) cannot be intercepted by phishing. Administrators are the highest-value targets; they should have the strongest authentication.
 
-**3. Can administrators obtain permanent broad roles?** 
-- **Why it matters:** Attackers who compromise an admin account with permanent broad access can cause unlimited damage. Using temporary, just-in-time elevation means admins have limited access by default; they request elevation only when needed, and the system logs and audits the request.
-- **If yes:** Implement Privileged Identity Management (PIM) to convert standing roles to time-bound, approved requests. Define emergency-access (break-glass) accounts kept offline for disaster scenarios.
-- **If no:** Still verify that access reviews happen regularly (annually at minimum) and that role descriptions stay current.
+**If no:**
+- Start with Microsoft Entra authentication methods and Conditional Access.
+- Enable MFA for administrators first, then extend to users accessing sensitive data.
 
-**4. Do applications, services, or agents act on behalf of users or the business?**
-- **Why it matters:** Application identities (service principals) often have overly broad permissions, and their secrets are frequently leaked or exposed in code repositories. Agents are a new category: software that acts autonomously with identity and access.
-- **If yes:** Inventory all service principals and their permissions. Implement application permissions (application owns the permission, not delegated from users). Monitor and rotate secrets/certificates. For agents, establish clear governance: what data can they access, which APIs can they call, who approves changes.
-- **If no:** Still plan for it. Applications and agents are growing parts of modern infrastructure; governance should be in place before they're broadly deployed.
+**If yes:**
+- Verify that passwordless sign-in (Windows Hello, FIDO2) is available and track adoption over time.
+
+---
+
+### 2. Does access depend on device trust, risk level, location, or data sensitivity?
+
+**Why it matters:** Conditional Access can block risky sign-ins (e.g., from unexpected locations, unmanaged devices, or amid sign-in attempts that show credential compromise indicators). This prevents attackers from using stolen credentials.
+
+**If no:**
+- Identify high-risk scenarios (financial apps, customer data, healthcare records).
+- Build Conditional Access rules in report-only mode first.
+- Monitor patterns before enforcing.
+
+**If yes:**
+- Review existing policies for unintended gaps (e.g., admin access from unusual locations).
+- Verify policies aren't so strict that users bypass them or help desk gets flooded.
+
+---
+
+### 3. Can administrators obtain permanent broad roles?
+
+**Why it matters:** Attackers who compromise an admin account with permanent broad access can cause unlimited damage. Just-in-time elevation means admins have limited access by default; they request elevation only when needed, and the system logs and audits the request.
+
+**If yes:**
+- Implement Privileged Identity Management (PIM) to convert standing roles to time-bound, approved requests.
+- Define emergency-access (break-glass) accounts kept offline for disaster scenarios.
+
+**If no:**
+- Still verify that access reviews happen regularly (annually at minimum).
+- Ensure role descriptions stay current.
+
+---
+
+### 4. Do applications, services, or agents act on behalf of users or the business?
+
+**Why it matters:** Application identities (service principals) often have overly broad permissions, and their secrets are frequently leaked or exposed in code repositories. Agents are a new category: software that acts autonomously with identity and access.
+
+**If yes:**
+- Inventory all service principals and their permissions.
+- Implement application permissions (application owns the permission, not delegated from users).
+- Monitor and rotate secrets/certificates.
+- For agents, establish clear governance: what data can they access, which APIs can they call, who approves changes.
+
+**If no:**
+- Still plan for it. Applications and agents are growing parts of modern infrastructure.
+- Governance should be in place before they're broadly deployed.
 
 ## Bring to the discussion
 
-**Evidence and inventory:**
-- Conditional Access policy inventory: how many exist, how many users are scoped, which are in report-only vs. enforced, and which have exclusions (and why).
-- MFA registration report: what percentage of users have registered MFA, which authentication methods are available (phone, email, FIDO2, Windows Hello), and adoption trends.
-- Privileged role assignments: who has admin roles, for how long they've held them, and whether there's a regular access review process.
-- Emergency access (break-glass) account status: does it exist, is it protected differently than other admin accounts, and when was it last tested?
-- Service principal and application inventory: which applications have access to Microsoft 365 or Azure, what permissions do they have, and when were their secrets/certificates last rotated?
-- Guest user and external identity policies: who can invite guests, which domains are trusted, and how are external partners managed?
+**Evidence and inventory to gather:**
 
-**Conversation focus:**
-1. Start with a risk question: "Have you had identity compromises, ransomware, or insider incidents? What was the impact?" This grounds the conversation in business impact.
-2. Validate the identity baseline: "What makes an account 'trusted' for sensitive access in your organization? How do you verify that today?"
-3. Move to risk mitigation: "If an admin account were compromised today, how would you detect it and respond?"
-4. Plan the roadmap: Establish phishing-resistant MFA for admins first, then expand to all users. Implement just-in-time admin access. Review app permissions.
+- Conditional Access policy inventory
+  - How many policies exist?
+  - How many users are scoped?
+  - Which are report-only vs. enforced?
+  - Which have exclusions and why?
+
+- MFA registration and adoption
+  - What percentage of users have MFA registered?
+  - Which authentication methods are available (phone, email, FIDO2, Windows Hello)?
+  - Adoption trends over time
+
+- Privileged access status
+  - Who has admin roles and for how long?
+  - Is there a regular access review process?
+  - Does emergency access (break-glass) account exist and when was it tested?
+
+- Application and service principal inventory
+  - Which applications have access to Microsoft 365 or Azure?
+  - What permissions do they have?
+  - When were secrets/certificates last rotated?
+
+- Guest and external identity management
+  - Who can invite guests?
+  - Which domains are trusted?
+  - How are external partners managed?
+
+**Conversation starters:**
+
+1. **Start with business risk:**
+   - "Have you had identity compromises, ransomware, or insider incidents? What was the impact?"
+   - This grounds the conversation in business impact, not compliance.
+
+2. **Validate the baseline:**
+   - "What makes an account 'trusted' for sensitive access in your organization?"
+   - "How do you verify that today?"
+
+3. **Explore incident response:**
+   - "If an admin account were compromised today, how would you detect it?"
+   - "What's your response plan?"
+
+4. **Plan the roadmap:**
+   - Establish phishing-resistant MFA for admins first.
+   - Expand to all users accessing sensitive data.
+   - Implement just-in-time admin access.
+   - Review application permissions.
 
 > **Outcome:** agree the identity baseline (authentication, authorization, and access governance) that every later control can rely on. No security control is stronger than the identity foundation underneath it.

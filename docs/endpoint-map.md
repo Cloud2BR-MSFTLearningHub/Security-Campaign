@@ -30,47 +30,118 @@
 
 ## Decision points
 
-**1. Are all corporate devices enrolled and reporting compliant with your policies?**
-- **Why it matters:** Enrollment means the device is registered and Intune can inventory it, apply policies, and verify it meets security standards. Devices not enrolled are invisible; you cannot enforce updates, encryption, or compliance.
-- **If no:** Define enrollment groups (all laptops enroll, rollout timeline). Create compliance policies (require Windows 10+, disk encryption, antivirus, 30-day security updates). Provide a help-desk enrollment path for support.
-- **If yes:** Review non-compliance trends. Why are devices failing compliance? (Updates delayed? Old OS? Encryption disabled?) Fix the root cause, not just the symptom.
+### 1. Are all corporate devices enrolled and reporting compliant with your policies?
 
-**2. Do personal devices (BYOD) need to access corporate data like Microsoft 365 or company apps?**
-- **Why it matters:** You cannot fully manage personal devices (no control over OS, browser, or home network). But you can require app-level protection and conditional access checks.
-- **If yes:** Implement app-level protection (Microsoft Intune app protection policies) instead of full device management. This protects company data without controlling the personal device. Pair with Conditional Access to step-up authentication if the device seems risky.
-- **If no:** Still plan for it. Many organizations end up allowing BYOD over time; have a policy framework ready.
+**Why it matters:** Enrollment means the device is registered and Intune can inventory it, apply policies, and verify it meets security standards. Devices not enrolled are invisible; you cannot enforce updates, encryption, or compliance.
 
-**3. Is access to finance, customer data, health records, or regulated information permitted from unmanaged or non-compliant devices?**
-- **Why it matters:** If an attacker compromises an unmanaged device or gains access to a lost device, sensitive data is at risk. Compliance status (encrypted disk, up-to-date OS, antivirus running) is a reasonable trust signal.
-- **If yes (currently allowed):** This is a material risk. Decide: require device enrollment, implement device-trust conditional access (allow only compliant devices), or block access entirely. The answer depends on business needs and risk tolerance.
-- **If no:** Enforce this decision in Conditional Access. Document exceptions and owners for any approved unmanaged access.
+**If no:**
+- Define enrollment groups (all laptops enroll, rollout timeline).
+- Create compliance policies (require Windows 10+, disk encryption, antivirus, 30-day security updates).
+- Provide a help-desk enrollment path for support.
 
-**4. Are endpoint alerts (suspicious files, lateral movement, malware) investigated and remediated by someone?**
-- **Why it matters:** Alerts without investigation are wasted visibility. Attackers often operate for weeks or months before detection. Fast investigation and containment reduce exposure time.
-- **If no:** Review Defender for Endpoint coverage. Establish an on-call owner (SOC, IT ops, MDR provider) who investigates high-severity alerts within 1 hour. Define a remediation workflow (isolate device, kill process, wipe file).
-- **If yes:** Review alert volume, mean time to detect (MTTD), and mean time to respond (MTTR). Are alerts actionable? Are tools integrated (can SOC isolate a device from the alert console?) Is the owner trained?
+**If yes:**
+- Review non-compliance trends.
+- Why are devices failing compliance? (Updates delayed? Old OS? Encryption disabled?)
+- Fix the root cause, not just the symptom.
+
+---
+
+### 2. Do personal devices (BYOD) need to access corporate data like Microsoft 365 or company apps?
+
+**Why it matters:** You cannot fully manage personal devices (no control over OS, browser, or home network). But you can require app-level protection and conditional access checks.
+
+**If yes:**
+- Implement app-level protection (Microsoft Intune app protection policies) instead of full device management.
+- This protects company data without controlling the personal device.
+- Pair with Conditional Access to step-up authentication if the device seems risky.
+
+**If no:**
+- Still plan for it. Many organizations end up allowing BYOD over time.
+- Have a policy framework ready.
+
+---
+
+### 3. Is access to finance, customer data, health records, or regulated information permitted from unmanaged or non-compliant devices?
+
+**Why it matters:** If an attacker compromises an unmanaged device or gains access to a lost device, sensitive data is at risk. Compliance status (encrypted disk, up-to-date OS, antivirus running) is a reasonable trust signal.
+
+**If yes (currently allowed):**
+- This is a material risk.
+- Decide: require device enrollment, implement device-trust conditional access (allow only compliant devices), or block access entirely.
+- The answer depends on business needs and risk tolerance.
+
+**If no:**
+- Enforce this decision in Conditional Access.
+- Document exceptions and owners for any approved unmanaged access.
+
+---
+
+### 4. Are endpoint alerts (suspicious files, lateral movement, malware) investigated and remediated by someone?
+
+**Why it matters:** Alerts without investigation are wasted visibility. Attackers often operate for weeks or months before detection. Fast investigation and containment reduce exposure time.
+
+**If no:**
+- Review Defender for Endpoint coverage.
+- Establish an on-call owner (SOC, IT ops, MDR provider) who investigates high-severity alerts within 1 hour.
+- Define a remediation workflow (isolate device, kill process, wipe file).
+
+**If yes:**
+- Review alert volume, mean time to detect (MTTD), and mean time to respond (MTTR).
+- Are alerts actionable?
+- Are tools integrated (can SOC isolate a device from the alert console?)?
+- Is the owner trained?
 
 ## Bring to the discussion
 
-**Current state inventory:**
-- Device inventory: how many devices (corporate, BYOD, shared, contractors), split by OS (Windows, macOS, iOS, Android), and enrollment rates for each group.
-- Compliance rates: what percentage of enrolled devices meet your baseline compliance policy? Which policies are most commonly violated (outdated OS, encryption disabled, antivirus off)?
-- BYOD and external-device policy: do you allow personal devices to access company data? If yes, what data? How is access controlled?
-- Help desk capacity: how many support staff support device enrollment, troubleshoot Intune issues, and respond to "I can't access email" tickets? Will they support new compliance rollout?
-- Current endpoint protection: do you have an antivirus deployed? EDR (detection and response)? If yes, who monitors alerts and how fast?
-- Incident history: have you had endpoint compromises, ransomware, data theft from endpoints, or lost/stolen devices? What was the impact and time to recovery?
+**Current state inventory to gather:**
+
+- Device inventory and enrollment
+  - How many devices (corporate, BYOD, shared, contractors)?
+  - Split by OS (Windows, macOS, iOS, Android).
+  - Enrollment rates for each group.
+
+- Compliance and security posture
+  - What percentage of enrolled devices meet baseline compliance policy?
+  - Which policies are most commonly violated (outdated OS, encryption disabled, antivirus off)?
+  - Do you have EDR (endpoint detection and response) deployed?
+
+- BYOD and external device management
+  - Do you allow personal devices to access company data?
+  - If yes, what data and how is access controlled?
+  - How do you verify external devices are safe?
+
+- Support and incident capacity
+  - How many help desk staff support enrollment, Intune, and device issues?
+  - Who monitors endpoint alerts and how fast?
+  - Have you had endpoint compromises, ransomware, or lost/stolen devices?
 
 **Conversation starters:**
-1. "If a laptop gets stolen today, what's your recovery plan? Can an attacker use cached credentials to access company data or cloud services?"
-2. "When you discover malware on a user's device, who gets a call and what happens next? How long does investigation and remediation take?"
-3. "What does a compliant device look like in your organization? (e.g., Windows 11, encrypted disk, Windows Defender running, latest patches)"
-4. "Do contractors, consultants, or VPN users access company data? From what devices? How do you verify those devices are safe?"
-5. "What's your current ransomware incident plan? Where are backups stored and are they tested regularly?"
+
+1. **Device security:**
+   - "If a laptop gets stolen today, what's your recovery plan?"
+   - "Can an attacker use cached credentials to access company data or cloud services?"
+
+2. **Incident response:**
+   - "When you discover malware on a device, who gets called?"
+   - "How long does investigation and remediation take?"
+
+3. **Compliance baseline:**
+   - "What does a compliant device look like in your organization?"
+   - "(e.g., Windows 11, encrypted disk, Windows Defender running, latest patches)"
+
+4. **External device access:**
+   - "Do contractors, consultants, or VPN users access company data?"
+   - "How do you verify those devices are safe?"
+
+5. **Disaster recovery:**
+   - "What's your ransomware incident plan?"
+   - "Where are backups stored and are they tested regularly?"
 
 **Planning the roadmap:**
-- Phase 1: Enroll all corporate-owned devices; define a baseline compliance policy.
-- Phase 2: Implement Conditional Access to require compliant devices for sensitive data access.
-- Phase 3: Add endpoint detection and response (EDR) for real-time threat investigation.
-- Phase 4: Introduce BYOD with app-level protection if business needs require it.
+
+- **Phase 1:** Enroll all corporate-owned devices; define a baseline compliance policy.
+- **Phase 2:** Implement Conditional Access to require compliant devices for sensitive data access.
+- **Phase 3:** Add endpoint detection and response (EDR) for real-time threat investigation.
+- **Phase 4:** Introduce BYOD with app-level protection if business needs require it.
 
 > **Outcome:** define which devices can access which data, what compliance means in your organization, and who investigates endpoint threats.

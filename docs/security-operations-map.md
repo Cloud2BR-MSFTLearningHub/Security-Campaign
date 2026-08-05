@@ -30,54 +30,155 @@
 
 ## Decision points
 
-**1. Which incidents or threats create the highest business disruption?**
-- **Why it matters:** You cannot monitor everything equally. Prioritize the signals and detections that address your highest-risk scenarios.
-- **Common scenarios:** Ransomware (disrupt production), data theft (regulatory fine), credential compromise (lateral movement), privileged abuse (insider threat), denial of service (website down).
-- **If no priorities are defined:** Ask: "If a production database went down today, what would be the business impact and recovery time?" "What threats keep the CISO awake at night?" "Have you had incidents that were especially costly or damaging?" Start with detections for those specific scenarios.
-- **If yes:** Map each scenario to required signals (e.g., ransomware requires endpoint alerts + network monitoring + backup auditing) and ensure those signals are collected.
+### 1. Which incidents or threats create the highest business disruption?
 
-**2. Are logs from identity, endpoints, cloud, network, and SaaS all collected, or are there gaps?**
-- **Why it matters:** An attacker may move through multiple systems (compromise account → download from endpoint → export from cloud → exfiltrate via network). If logs from any step are missing, you lose visibility.
-- **Common gaps:** "We have endpoint EDR but no network monitoring." "We log Azure but not AWS." "SaaS apps are managed by business units; we don't see their logs."
-- **If gaps exist:** Prioritize high-impact sources: identity (most attacks start here), endpoints (detect malware and lateral movement), cloud (detect unauthorized resource creation), network (detect data exfiltration). Plan to reduce gaps over time.
-- **If comprehensive:** Ensure retention is adequate (6-12 months minimum for forensics). Model retention and egress costs; they can be significant.
+**Why it matters:** You cannot monitor everything equally. Prioritize the signals and detections that address your highest-risk scenarios.
 
-**3. Who owns an alert after it's created? What's the decision tree?**
-- **Why it matters:** Without clear ownership, alerts get lost or duplicated. If multiple people can respond, response is slow. If only one person can respond and they're on vacation, alerts queue up.
-- **Common confusion:** "Is this endpoint alert a true threat or a known exception?" "Should this trigger an incident or just add context to another investigation?" "If we isolate this device, will it break business-critical work?"
-- **If ownership is unclear:** Define an escalation path:
+**Common scenarios:**
+- Ransomware (disrupt production)
+- Data theft (regulatory fine)
+- Credential compromise (lateral movement)
+- Privileged abuse (insider threat)
+- Denial of service (website down)
+
+**If no priorities are defined:**
+- Ask: "If a production database went down today, what would be the business impact and recovery time?"
+- "What threats keep the CISO awake at night?"
+- "Have you had incidents that were especially costly or damaging?"
+- Start with detections for those specific scenarios.
+
+**If yes:**
+- Map each scenario to required signals (e.g., ransomware requires endpoint alerts + network monitoring + backup auditing).
+- Ensure those signals are collected.
+
+---
+
+### 2. Are logs from identity, endpoints, cloud, network, and SaaS all collected, or are there gaps?
+
+**Why it matters:** An attacker may move through multiple systems (compromise account → download from endpoint → export from cloud → exfiltrate via network). If logs from any step are missing, you lose visibility.
+
+**Common gaps:**
+- "We have endpoint EDR but no network monitoring."
+- "We log Azure but not AWS."
+- "SaaS apps are managed by business units; we don't see their logs."
+
+**If gaps exist:**
+- Prioritize high-impact sources: identity (most attacks start here), endpoints (detect malware and lateral movement), cloud (detect unauthorized resource creation), network (detect data exfiltration).
+- Plan to reduce gaps over time.
+
+**If comprehensive:**
+- Ensure retention is adequate (6-12 months minimum for forensics).
+- Model retention and egress costs; they can be significant.
+
+---
+
+### 3. Who owns an alert after it's created? What's the decision tree?
+
+**Why it matters:** Without clear ownership, alerts get lost or duplicated. If multiple people can respond, response is slow. If only one person can respond and they're on vacation, alerts queue up.
+
+**Common confusion:**
+- "Is this endpoint alert a true threat or a known exception?"
+- "Should this trigger an incident or just add context to another investigation?"
+- "If we isolate this device, will it break business-critical work?"
+
+**If ownership is unclear:**
+- Define an escalation path:
   - Analyst receives alert → assess severity and business impact.
   - High severity → immediate escalation to incident commander.
   - Medium severity → assigned to on-call engineer; investigate within 4 hours.
   - Low severity or exception → logged and closed.
   - Define who can auto-remediate (disable account) vs. who needs approval.
-- **If ownership is clear:** Document exceptions formally ("we receive X alerts per day, Y% are known exceptions, and here's why"). Review and adjust quarterly.
 
-**4. Are analysts spending time on repeatable investigation or reporting tasks that could be automated?**
-- **Why it matters:** Analysts are expensive and skilled. Using their time for manual data collection, formatting reports, or running the same queries is wasteful. Automation frees them for high-value work: investigating unusual anomalies, designing new detections, and improving processes.
-- **Common time-wasters:** "Every incident needs a 5-page report; we write it manually." "To investigate a file hash, we query 3 different tools and copy-paste results." "Monthly compliance reports are 40 hours of work."
-- **If yes:** Evaluate Security Copilot and Sentinel automation after data quality, alert quality, and ownership are solid. (Automating a bad process faster is not progress.)
-- **If no:** You may be ready for Copilot now, or the workload may be small enough that automation isn't the blocker.
+**If ownership is clear:**
+- Document exceptions formally ("we receive X alerts per day, Y% are known exceptions, and here's why").
+- Review and adjust quarterly.
+
+---
+
+### 4. Are analysts spending time on repeatable investigation or reporting tasks that could be automated?
+
+**Why it matters:** Analysts are expensive and skilled. Using their time for manual data collection, formatting reports, or running the same queries is wasteful. Automation frees them for high-value work: investigating unusual anomalies, designing new detections, and improving processes.
+
+**Common time-wasters:**
+- "Every incident needs a 5-page report; we write it manually."
+- "To investigate a file hash, we query 3 different tools and copy-paste results."
+- "Monthly compliance reports are 40 hours of work."
+
+**If yes:**
+- Evaluate Security Copilot and Sentinel automation.
+- Only automate after data quality, alert quality, and ownership are solid.
+- (Automating a bad process faster is not progress.)
+
+**If no:**
+- You may be ready for Copilot now.
+- Or the workload may be small enough that automation isn't the blocker.
 
 ## Bring to the discussion
 
-**Current state inventory:**
-- **Security incidents and trends:** How many incidents has the organization handled in the past year? What was the average detection time (minutes, hours, days)? Response time? Resolution time? Root causes?
-- **Current monitoring tools:** What SIEM, SOC platform, or managed service provider does the organization use? How many alerts per day? What % are actionable vs. noise?
-- **Available logs and signals:** Which sources feed into monitoring today? (Entra ID, Defender for Endpoint, Azure activity, firewalls, VPN, SaaS apps, databases) Which are missing?
-- **Team structure:** How many analysts? Are they on-call 24/7 or business hours? What's their experience level? Are there known staffing gaps?
-- **Response playbooks:** Do documented playbooks exist for common incident types (ransomware, credential compromise, data exfiltration)? How often are they tested?
-- **Retention and compliance:** How long are logs kept? Is log retention governed by regulation (e.g., SIEM logs required for 1 year for compliance)? What's the annual cost?
-- **Incident history and pain points:** What was the worst incident? How fast was it detected and stopped? What would have helped?
-- **Automation current state:** Are there SOAR tools or Sentinel playbooks implemented? If yes, what do they automate? If no, what manual tasks could be automated?
+**Current state inventory to gather:**
+
+- Security incidents and trends
+  - How many incidents in the past year?
+  - Average detection time (minutes, hours, days)?
+  - Response and resolution time?
+  - Common root causes?
+
+- Current monitoring and tools
+  - What SIEM, SOC platform, or MSP?
+  - Alerts per day?
+  - % actionable vs. noise?
+
+- Available logs and signals
+  - Which sources feed into monitoring? (Entra ID, Defender for Endpoint, Azure activity, firewalls, VPN, SaaS apps, databases)
+  - Which are missing?
+
+- Team structure and capacity
+  - How many analysts?
+  - On-call 24/7 or business hours?
+  - Experience level?
+  - Known staffing gaps?
+
+- Response and recovery
+  - Documented playbooks for common incidents? (ransomware, credential compromise, data exfiltration)
+  - How often are playbooks tested?
+
+- Retention and compliance
+  - How long are logs kept?
+  - Regulatory retention requirements?
+  - Annual cost?
+
+- Automation and tooling
+  - SOAR tools or Sentinel playbooks implemented?
+  - If yes: What do they automate?
+  - If no: What manual tasks could be automated?
 
 **Conversation starters:**
-1. "Tell me about your most serious incident in the past 2 years. How was it detected? How long from detection to containment? What could have been done faster?"
-2. "If an attacker compromised a critical server right now, how would you detect it? Who would you call? How long until the server is isolated?"
-3. "How many alerts does your team receive per day? What % are false positives or known exceptions?"
-4. "Do you have 24/7 monitoring? If an incident happens at 2 AM on a Sunday, who responds?"
-5. "Walk me through your incident response playbook for ransomware. How many manual steps? How many people are involved?"
-6. "Are you looking at Security Copilot or other AI tools? What problem are you trying to solve: alert fatigue, investigation speed, analyst shortage?"
+
+1. **Incident history:**
+   - "Tell me about your most serious incident in the past 2 years."
+   - "How was it detected?"
+   - "How long from detection to containment?"
+   - "What could have been done faster?"
+
+2. **Incident response speed:**
+   - "If an attacker compromised a critical server right now, how would you detect it?"
+   - "Who would you call? How long until the server is isolated?"
+
+3. **Alert volume and quality:**
+   - "How many alerts does your team receive per day?"
+   - "What % are false positives or known exceptions?"
+
+4. **SOC operations:**
+   - "Do you have 24/7 monitoring?"
+   - "If an incident happens at 2 AM on a Sunday, who responds?"
+
+5. **Incident playbooks:**
+   - "Walk me through your incident response playbook for ransomware."
+   - "How many manual steps? How many people are involved?"
+
+6. **AI and automation:**
+   - "Are you looking at Security Copilot or other AI tools?"
+   - "What problem are you trying to solve: alert fatigue, investigation speed, analyst shortage?"
 
 **Planning the roadmap:**
 - **Phase 1 (30 days):** Inventory available logs and signals. Define high-priority incident scenarios (ransomware, data theft, credential compromise). Estimate current detection and response times for each.

@@ -35,59 +35,170 @@
 
 ## Decision points
 
-**1. Does the customer run virtual machines, servers, or hybrid compute?**
-- **Why it matters:** Servers are high-value targets. An attacker who gains access to a server can steal data, run code, and pivot to other systems. Keeping servers patched and monitored is essential.
-- **Common scenario:** A server running a web application gets compromised by an unpatched vulnerability. Attackers gain code execution, install persistence, and exfiltrate customer data—all before the organization detects it.
-- **What to examine:** Which operating systems and versions are running? How current are patches (measured in days/weeks behind latest)? Is endpoint detection and response (EDR) installed? Do logs feed into a SIEM or SOC?
-- **Starting conversation:** "When was the oldest server last patched? Are there servers that haven't been patched in 6+ months? What's the business reason?" "If a server is compromised, how long until you detect it?"
+### 1. Does the customer run virtual machines, servers, or hybrid compute?
 
-**2. Does the customer run containers or Kubernetes?**
-- **Why it matters:** Containers and Kubernetes enable speed but introduce complexity. Container images can contain vulnerable libraries; Kubernetes clusters can be misconfigured to allow privilege escalation or lateral movement.
-- **Common scenario:** A container image built 6 months ago is deployed to production without rescanning. It contains a library with a known critical vulnerability. An attacker exploits it and escapes the container to the host.
-- **What to examine:** Are container images scanned before deployment and regularly scanned while running? Is the Kubernetes cluster configuration reviewed for overly permissive RBAC or network policies? Who owns container registry access?
-- **Starting conversation:** "How do you know if a running container has a vulnerable library? How often are running containers rescanned?" "Can a compromised container break out to the host or other containers?"
+**Why it matters:** Servers are high-value targets. An attacker who gains access to a server can steal data, run code, and pivot to other systems. Keeping servers patched and monitored is essential.
 
-**3. Does the customer store business-critical or regulated data (customer records, health info, financial data, IP) in cloud services?**
-- **Why it matters:** Data breaches are expensive and carry regulatory penalties. Misconfigurations that expose data (e.g., public storage account) are among the fastest-growing breach causes.
-- **Common scenario:** A database replica or backup is restored to a temporary storage account for testing. Access is set to "public" by mistake. Attackers enumerate storage accounts, find it, and exfiltrate customer credit cards or health records.
-- **What to examine:** Where does sensitive data live (databases, storage, SaaS)? Is it classified and tagged? Who can access it? Are backups encrypted and tested for recovery? Are data access patterns monitored?
-- **Starting conversation:** "Can you list every database and storage account that holds customer data? For each one, who has access and how is that verified quarterly?" "If a backup goes missing, how quickly would you know?"
+**Common scenario:**
+A server running a web application gets compromised by an unpatched vulnerability. Attackers gain code execution, install persistence, and exfiltrate customer data—all before the organization detects it.
 
-**4. Are applications or APIs internet-facing (customers or partners access them)?**
-- **Why it matters:** Internet-facing services are attack targets. Attackers probe them for vulnerabilities, weak authentication, rate-limiting gaps, and credential exposure.
-- **Common scenario:** An API endpoint accepts a user ID parameter without validation. An attacker incrementally tries all user IDs to enumerate the system and steal data for each one. No rate limiting meant the attack ran for hours before detection.
-- **What to examine:** Which services are internet-exposed? Do they require authentication? Are there rate limits? Are secrets (passwords, API keys) hardcoded or stored securely? Are application logs generated and monitored?
-- **Starting conversation:** "If you list all your APIs and web apps, which ones face the internet? For each one, what authentication is required? Can an unauthenticated user access any data or trigger any actions?" "Have you scanned your code repositories for exposed credentials?"
+**What to examine:**
+- Which operating systems and versions are running?
+- How current are patches (measured in days/weeks behind latest)?
+- Is endpoint detection and response (EDR) installed?
+- Do logs feed into a SIEM or SOC?
 
-**5. Is the infrastructure multi-cloud (Azure, AWS, GCP) or hybrid (on-premises + cloud)?**
-- **Why it matters:** Multi-cloud and hybrid environments introduce complexity: different tooling, policy inconsistencies, and blind spots. Attackers can exploit inconsistent security across clouds.
-- **Common scenario:** A company uses Azure and AWS. The organization enforces encryption in Azure but misses it in AWS. Attackers target the AWS deployment and exfiltrate unencrypted data.
-- **What to examine:** Which clouds and subscriptions/accounts are in scope? Are policies consistent (patching, encryption, access control)? Is there a single pane of glass for visibility, or do teams monitor each cloud separately? Who owns the multi-cloud security strategy?
-- **Starting conversation:** "Do you have subscriptions, accounts, or regions that are 'in shadow' (not actively monitored)? Which team owns security governance across all clouds?" "If you had to report compliance status tomorrow, would you have all the data?"
+**Starting conversation:**
+- "When was the oldest server last patched?"
+- "Are there servers that haven't been patched in 6+ months? What's the business reason?"
+- "If a server is compromised, how long until you detect it?"
+
+---
+
+### 2. Does the customer run containers or Kubernetes?
+
+**Why it matters:** Containers and Kubernetes enable speed but introduce complexity. Container images can contain vulnerable libraries; Kubernetes clusters can be misconfigured to allow privilege escalation or lateral movement.
+
+**Common scenario:**
+A container image built 6 months ago is deployed to production without rescanning. It contains a library with a known critical vulnerability. An attacker exploits it and escapes the container to the host.
+
+**What to examine:**
+- Are container images scanned before deployment and regularly scanned while running?
+- Is the Kubernetes cluster configuration reviewed for overly permissive RBAC or network policies?
+- Who owns container registry access?
+
+**Starting conversation:**
+- "How do you know if a running container has a vulnerable library?"
+- "How often are running containers rescanned?"
+- "Can a compromised container break out to the host or other containers?"
+
+---
+
+### 3. Does the customer store business-critical or regulated data in cloud services?
+
+**Why it matters:** Data breaches are expensive and carry regulatory penalties. Misconfigurations that expose data (e.g., public storage account) are among the fastest-growing breach causes.
+
+**Common scenario:**
+A database replica or backup is restored to a temporary storage account for testing. Access is set to "public" by mistake. Attackers enumerate storage accounts, find it, and exfiltrate customer credit cards or health records.
+
+**What to examine:**
+- Where does sensitive data live (databases, storage, SaaS)?
+- Is it classified and tagged?
+- Who can access it?
+- Are backups encrypted and tested for recovery?
+- Are data access patterns monitored?
+
+**Starting conversation:**
+- "Can you list every database and storage account that holds customer data?"
+- "For each one, who has access and how is that verified quarterly?"
+- "If a backup goes missing, how quickly would you know?"
+
+---
+
+### 4. Are applications or APIs internet-facing?
+
+**Why it matters:** Internet-facing services are attack targets. Attackers probe them for vulnerabilities, weak authentication, rate-limiting gaps, and credential exposure.
+
+**Common scenario:**
+An API endpoint accepts a user ID parameter without validation. An attacker incrementally tries all user IDs to enumerate the system and steal data for each one. No rate limiting meant the attack ran for hours before detection.
+
+**What to examine:**
+- Which services are internet-exposed?
+- Do they require authentication?
+- Are there rate limits?
+- Are secrets (passwords, API keys) hardcoded or stored securely?
+- Are application logs generated and monitored?
+
+**Starting conversation:**
+- "If you list all your APIs and web apps, which ones face the internet?"
+- "For each one, what authentication is required?"
+- "Can an unauthenticated user access any data or trigger any actions?"
+- "Have you scanned your code repositories for exposed credentials?"
+
+---
+
+### 5. Is the infrastructure multi-cloud or hybrid?
+
+**Why it matters:** Multi-cloud and hybrid environments introduce complexity: different tooling, policy inconsistencies, and blind spots. Attackers can exploit inconsistent security across clouds.
+
+**Common scenario:**
+A company uses Azure and AWS. The organization enforces encryption in Azure but misses it in AWS. Attackers target the AWS deployment and exfiltrate unencrypted data.
+
+**What to examine:**
+- Which clouds and subscriptions/accounts are in scope?
+- Are policies consistent (patching, encryption, access control)?
+- Is there a single pane of glass for visibility, or do teams monitor each cloud separately?
+- Who owns the multi-cloud security strategy?
+
+**Starting conversation:**
+- "Do you have subscriptions, accounts, or regions that are 'in shadow' (not actively monitored)?"
+- "Which team owns security governance across all clouds?"
+- "If you had to report compliance status tomorrow, would you have all the data?"
 
 ## Bring to the discussion
 
-**Current state inventory:**
-- Cloud infrastructure inventory: which subscriptions/accounts/projects exist, how many VMs/containers/databases/storage accounts, and which regions/clouds are in use.
-- Workload criticality: which applications and data are mission-critical, and what's the business impact of downtime or data loss?
-- Security posture findings: if you've run assessments before, what were the top findings? (e.g., X% of VMs unpatched, Y databases with overly broad access, Z storage accounts publicly accessible)
-- Vulnerability and patch status: what's the median patch age across your servers? Any servers with critical-severity unpatched vulnerabilities?
-- Service owners: who owns each cloud subscription, application, database, and is responsible for its security compliance?
-- Remediation expectations: if a high-severity vulnerability is found, what's the SLA to remediate? (24 hours, 7 days?)
-- Logging and monitoring: where do cloud and application logs go? How long are they retained? Is anyone actively monitoring them for suspicious activity?
-- Backup and recovery: where are backups stored (onsite, different cloud, different region)? When were they last tested end-to-end?
+**Current state inventory to gather:**
+
+- Cloud infrastructure and subscriptions
+  - Which subscriptions/accounts/projects exist?
+  - How many VMs/containers/databases/storage accounts?
+  - Which regions/clouds are in use?
+
+- Workload and data criticality
+  - Which applications and data are mission-critical?
+  - What's the business impact of downtime or data loss?
+
+- Security posture findings
+  - What were the top findings from previous assessments?
+  - (e.g., X% of VMs unpatched, Y databases with overly broad access, Z storage accounts publicly accessible)
+
+- Vulnerability and patch status
+  - What's the median patch age across your servers?
+  - Any servers with critical-severity unpatched vulnerabilities?
+
+- Service owners and accountability
+  - Who owns each cloud subscription, application, database?
+  - Who is responsible for security compliance?
+  - What's the SLA to remediate high-severity vulnerabilities? (24 hours, 7 days?)
+
+- Logging and monitoring
+  - Where do cloud and application logs go?
+  - How long are they retained?
+  - Is anyone actively monitoring for suspicious activity?
+
+- Backup and recovery
+  - Where are backups stored (onsite, different cloud, different region)?
+  - When were they last tested end-to-end?
 
 **Conversation starters:**
-1. "Walk me through a recent compromise or close call. What was exposed, how long before you detected it, and what could have helped you detect it sooner?"
-2. "If I gained valid credentials for one of your cloud accounts, what's the fastest attack path to steal customer data? How would you detect me?"
-3. "Which of your servers or databases haven't been touched in 2+ years? Why are they still running? Can they be decommissioned?"
-4. "What's your multi-cloud or hybrid security strategy? Do you have one team owning it or separate teams per cloud?" "Is there a configuration that's secure in Azure but not enforced in AWS?"
-5. "If you lost all production data today (ransomware, malicious deletion), how fast could you recover? Has that been tested end-to-end?"
+
+1. **Risk and incident history:**
+   - "Walk me through a recent compromise or close call."
+   - "What was exposed, how long before you detected it?"
+   - "What could have helped you detect it sooner?"
+
+2. **Attack scenario:**
+   - "If I gained valid credentials for one of your cloud accounts, what's the fastest attack path to steal customer data?"
+   - "How would you detect me?"
+
+3. **Resource hygiene:**
+   - "Which of your servers or databases haven't been touched in 2+ years?"
+   - "Why are they still running? Can they be decommissioned?"
+
+4. **Multi-cloud governance:**
+   - "What's your multi-cloud or hybrid security strategy?"
+   - "Do you have one team owning it or separate teams per cloud?"
+   - "Is there a configuration that's secure in Azure but not enforced in AWS?"
+
+5. **Disaster recovery:**
+   - "If you lost all production data today (ransomware, malicious deletion), how fast could you recover?"
+   - "Has that been tested end-to-end?"
 
 **Planning the roadmap:**
-- **Phase 1 (30 days):** Inventory all cloud subscriptions and resources. Run a Defender for Cloud security posture assessment. Identify and triage the top 10 findings.
-- **Phase 2 (60 days):** Define remediation owners for each finding. Create a patching strategy (critical CVEs in 7 days, high in 14 days, etc.).
-- **Phase 3 (90 days):** Implement workload protection (Defender for Servers/Containers/Databases) and enable logging and monitoring. Integrate logs into Sentinel for SOC visibility.
-- **Phase 4 (ongoing):** Establish quarterly reviews of posture findings, monitor cloud compliance, and adjust Defender plans based on workload changes.
 
-> **Outcome:** gain visibility into cloud misconfigurations, understand which workloads are at highest risk, assign ownership and SLAs for remediation, and choose Defender plans that address material exposure.
+- **Phase 1 (30 days):** Inventory all cloud subscriptions and resources. Run Defender for Cloud security posture assessment. Identify and triage top 10 findings.
+- **Phase 2 (60 days):** Define remediation owners. Create patching strategy (critical CVEs in 7 days, high in 14 days).
+- **Phase 3 (90 days):** Implement workload protection (Defender for Servers/Containers/Databases). Enable logging and monitoring. Integrate logs into Sentinel for SOC visibility.
+- **Phase 4 (ongoing):** Quarterly reviews of posture findings, cloud compliance monitoring, and Defender plan adjustments based on workload changes.
+
+> **Outcome:** Gain visibility into cloud misconfigurations, understand which workloads are at highest risk, assign ownership and SLAs for remediation, and choose Defender plans that address material exposure.
