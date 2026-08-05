@@ -12,63 +12,71 @@ Use these decision maps to turn a customer environment into the security convers
 
 ## Security decision map
 
-Use this decision map to identify which security areas apply to the customer environment, then open the matching map for a detailed conversation.
+Use this map to spot the biggest gap in each area, then open the matching map for a detailed conversation.
 
-<div class="diagram-frame" markdown>
-```mermaid
-%%{init: {'flowchart': {'nodeSpacing': 32, 'rankSpacing': 65, 'curve': 'basis'}, 'themeVariables': {'fontSize': '15px'}}}%%
-flowchart LR
-    Start(["Start:\nwhat's in scope?"]):::start --> ID{Identity\nand access}:::idNode
-    Start --> EP{Endpoints\nand devices}:::epNode
-    Start --> CL{Cloud\nworkloads}:::clNode
-    Start --> DA{Data\nand AI}:::daNode
-    Start --> SO{Security\noperations}:::soNode
+<div class="flow-diagram" markdown>
 
-    ID --> ID_Q1{MFA enforced\nfor admins?}:::idNode
-    ID_Q1 -->|No| ID_R1[["Start with Conditional\nAccess + MFA"]]:::idNode
-    ID_Q1 -->|Yes| ID_Q2{Standing admin\nroles?}:::idNode
-    ID_Q2 -->|Yes| ID_R2[["Move to PIM\njust-in-time access"]]:::idNode
-    ID_Q2 -->|No| ID_R3[["Govern app and\nagent identities"]]:::idNode
-
-    EP --> EP_Q1{Devices\nenrolled?}:::epNode
-    EP_Q1 -->|No| EP_R1[["Start with Intune\nenrollment"]]:::epNode
-    EP_Q1 -->|Yes| EP_Q2{BYOD accessing\ndata?}:::epNode
-    EP_Q2 -->|Yes| EP_R2[["Apply BYOD app\nprotection"]]:::epNode
-    EP_Q2 -->|No| EP_R3[["Expand Defender for\nEndpoint coverage"]]:::epNode
-
-    CL --> CL_Q1{What services\nrun?}:::clNode
-    CL_Q1 -->|VMs / servers| CL_R1[["Defender for\nServers"]]:::clNode
-    CL_Q1 -->|Containers| CL_R2[["Defender for\nContainers"]]:::clNode
-    CL_Q1 -->|Databases / storage| CL_R3[["Defender for Databases\n+ Storage"]]:::clNode
-    CL_Q1 -->|Internet-facing APIs| CL_R4[["API security +\nworkload identities"]]:::clNode
-
-    DA --> DA_Q1{Sensitive data\nnamed?}:::daNode
-    DA_Q1 -->|No| DA_R1[["Run data taxonomy\nworkshop"]]:::daNode
-    DA_Q1 -->|Yes| DA_Q2{DLP\nenforced?}:::daNode
-    DA_Q2 -->|No| DA_R2[["Apply Purview labels\n+ DLP"]]:::daNode
-    DA_Q2 -->|Yes| DA_R3[["Set agent governance\n+ audit logging"]]:::daNode
-
-    SO --> SO_Q1{Logs collected\ncentrally?}:::soNode
-    SO_Q1 -->|No| SO_R1[["Close gaps with\nSentinel"]]:::soNode
-    SO_Q1 -->|Yes| SO_Q2{Alert ownership\nclear?}:::soNode
-    SO_Q2 -->|No| SO_R2[["Define escalation\n+ playbooks"]]:::soNode
-    SO_Q2 -->|Yes| SO_R3[["Introduce Security\nCopilot"]]:::soNode
-
-    classDef start fill:#003366,color:#fff,stroke:#003366,stroke-width:1px;
-    classDef idNode fill:#eaf2fa,stroke:#006f84,color:#0b3550;
-    classDef epNode fill:#eef4e7,stroke:#4c6f28,color:#233611;
-    classDef clNode fill:#f1ecf8,stroke:#7454a4,color:#33234a;
-    classDef daNode fill:#fdf1e2,stroke:#a25d00,color:#4a2c00;
-    classDef soNode fill:#fbeaee,stroke:#a13f55,color:#4a1926;
-```
+<div class="flow-row flow-identity" markdown>
+<div class="flow-node flow-category"><span class="flow-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12 20 3M17 6l2 2M14.5 8.5l2 2"/></svg></span><strong>Identity and access</strong></div>
+<div class="flow-arrow">→</div>
+<div class="flow-node flow-question">What's the biggest identity gap today?</div>
+<div class="flow-outcomes">
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">No MFA on admins → start with Conditional Access and MFA</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Standing admin access → move to PIM just-in-time access</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Apps or agents ungoverned → set up workload identities</div></div>
 </div>
+</div>
+<a class="flow-open-link" href="identity-access/">Open identity map →</a>
 
-<div class="diagram-legend" markdown>
-<a class="legend-chip legend-identity" href="identity-access/"><span></span>Identity and access</a>
-<a class="legend-chip legend-endpoint" href="endpoint-map/"><span></span>Endpoints and devices</a>
-<a class="legend-chip legend-cloud" href="cloud-workload-map/"><span></span>Cloud workloads</a>
-<a class="legend-chip legend-data" href="data-ai-map/"><span></span>Data and AI</a>
-<a class="legend-chip legend-operations" href="security-operations-map/"><span></span>Security operations</a>
+<div class="flow-row flow-endpoint" markdown>
+<div class="flow-node flow-category"><span class="flow-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="10" rx="1.2"/><path d="M2 19h20"/></svg></span><strong>Endpoints and devices</strong></div>
+<div class="flow-arrow">→</div>
+<div class="flow-node flow-question">What's the biggest device gap today?</div>
+<div class="flow-outcomes">
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Devices not enrolled → start with Intune enrollment</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">BYOD accessing data → apply app protection policies</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Alerts not investigated → expand Defender for Endpoint</div></div>
+</div>
+</div>
+<a class="flow-open-link" href="endpoint-map/">Open endpoint map →</a>
+
+<div class="flow-row flow-cloud" markdown>
+<div class="flow-node flow-category"><span class="flow-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><strong>Cloud workloads</strong></div>
+<div class="flow-arrow">→</div>
+<div class="flow-node flow-question">Which services need protection?</div>
+<div class="flow-outcomes">
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">VMs or servers → Defender for Servers</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Containers or Kubernetes → Defender for Containers</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Databases or storage → Defender for Databases and Storage</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Internet-facing APIs → API security and workload identities</div></div>
+</div>
+</div>
+<a class="flow-open-link" href="cloud-workload-map/">Open cloud map →</a>
+
+<div class="flow-row flow-data" markdown>
+<div class="flow-node flow-category"><span class="flow-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/></svg></span><strong>Data and AI</strong></div>
+<div class="flow-arrow">→</div>
+<div class="flow-node flow-question">What's the data risk today?</div>
+<div class="flow-outcomes">
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Sensitive data not classified → run a data taxonomy workshop</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">DLP not enforced → apply sensitivity labels and DLP</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Agents access internal data → set agent governance and audit logging</div></div>
+</div>
+</div>
+<a class="flow-open-link" href="data-ai-map/">Open data and AI map →</a>
+
+<div class="flow-row flow-operations" markdown>
+<div class="flow-node flow-category"><span class="flow-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg></span><strong>Security operations</strong></div>
+<div class="flow-arrow">→</div>
+<div class="flow-node flow-question">What's the detection gap?</div>
+<div class="flow-outcomes">
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Logs not centralized → close gaps with Sentinel</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Alert ownership unclear → define escalation paths and playbooks</div></div>
+<div class="flow-outcome-row"><div class="flow-node flow-outcome">Analysts stuck on manual tasks → introduce Security Copilot</div></div>
+</div>
+</div>
+<a class="flow-open-link" href="security-operations-map/">Open operations map →</a>
+
 </div>
 
 ## Start with the customer environment

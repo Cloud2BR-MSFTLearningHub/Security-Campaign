@@ -29,11 +29,7 @@ markdown_extensions:
   - md_in_html
   - tables
   - pymdownx.highlight
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
   - toc:
@@ -43,7 +39,6 @@ extra_css:
 extra_javascript:
   - assets/js/logo-link.js
   - assets/js/external-links.js
-  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
 extra:
   generator: false
   social:
