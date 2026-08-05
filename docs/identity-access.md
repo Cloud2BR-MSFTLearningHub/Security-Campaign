@@ -96,59 +96,55 @@
 
 **Evidence and inventory to gather:**
 
-- Conditional Access policy inventory:
-
+- Conditional Access policy inventory
   - How many policies exist?
   - How many users are scoped?
   - Which are report-only vs. enforced?
   - Which have exclusions and why?
 
-- MFA registration and adoption:
-
+- MFA registration and adoption
   - What percentage of users have MFA registered?
   - Which authentication methods are available (phone, email, FIDO2, Windows Hello)?
-  - Adoption trends over time
+  - What are adoption trends over time?
 
-- Privileged access status:
-
+- Privileged access status
   - Who has admin roles and for how long?
   - Is there a regular access review process?
-  - Does emergency access (break-glass) account exist and when was it tested?
+  - Does an emergency-access (break-glass) account exist, and when was it last tested?
 
-- Application and service principal inventory:
-
+- Application and service principal inventory
   - Which applications have access to Microsoft 365 or Azure?
   - What permissions do they have?
-  - When were secrets/certificates last rotated?
+  - When were secrets and certificates last rotated?
 
-- Guest and external identity management:
-
+- Guest and external identity management
   - Who can invite guests?
   - Which domains are trusted?
   - How are external partners managed?
 
 **Conversation starters:**
 
-1. **Start with business risk**
-
+1. **Start with business risk:**
    - "Have you had identity compromises, ransomware, or insider incidents? What was the impact?"
-   - This grounds the conversation in business impact, not compliance.
+   - This keeps the discussion focused on business impact, not just compliance.
 
-2. **Validate the baseline**
-
-   - "What makes an account 'trusted' for sensitive access in your organization?"
+2. **Validate the trust baseline:**
+   - "What makes an account trusted for sensitive access in your organization?"
    - "How do you verify that today?"
 
-3. **Explore incident response**
-
+3. **Test the response model:**
    - "If an admin account were compromised today, how would you detect it?"
-   - "What's your response plan?"
+   - "What is your response plan in the first hour?"
 
-4. **Plan the roadmap**
+4. **Confirm ownership and change control:**
+   - "Who approves identity policy exceptions?"
+   - "Who owns service principal permissions and secret rotation?"
 
-   - Establish phishing-resistant MFA for admins first.
-   - Expand to all users accessing sensitive data.
-   - Implement just-in-time admin access.
-   - Review application permissions.
+**Planning the roadmap:**
 
-> **Outcome:** agree the identity baseline (authentication, authorization, and access governance) that every later control can rely on. No security control is stronger than the identity foundation underneath it.
+- **Phase 1:** Enforce phishing-resistant MFA for administrators and other high-risk users.
+- **Phase 2:** Expand Conditional Access based on device trust, sign-in risk, and data sensitivity.
+- **Phase 3:** Move standing admin roles to just-in-time access with regular reviews.
+- **Phase 4:** Formalize application identity governance, agent boundaries, and audit practices.
+
+> **Outcome:** Agree the identity baseline (authentication, authorization, and access governance) that every later control can rely on. No security control is stronger than the identity foundation underneath it.
