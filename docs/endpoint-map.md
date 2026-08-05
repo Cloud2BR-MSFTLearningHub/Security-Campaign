@@ -114,25 +114,30 @@ Use this as a pre-meeting checklist. If an item is missing, that gap usually bec
 
 **Conversation starters:**
 
-- **Device security:**
-   - "If a laptop gets stolen today, what's your recovery plan?"
-   - "Can an attacker use cached credentials to access company data or cloud services?"
+**Device security:**
 
-- **Incident response:**
-   - "When you discover malware on a device, who gets called?"
-   - "How long does investigation and remediation take?"
+- "If a laptop gets stolen today, what's your recovery plan?"
+- "Can an attacker use cached credentials to access company data or cloud services?"
 
-- **Compliance baseline:**
-   - "What does a compliant device look like in your organization?"
-   - "(e.g., Windows 11, encrypted disk, Windows Defender running, latest patches)"
+**Incident response:**
 
-- **External device access:**
-   - "Do contractors, consultants, or VPN users access company data?"
-   - "How do you verify those devices are safe?"
+- "When you discover malware on a device, who gets called?"
+- "How long does investigation and remediation take?"
 
-- **Disaster recovery:**
-   - "What's your ransomware incident plan?"
-   - "Where are backups stored and are they tested regularly?"
+**Compliance baseline:**
+
+- "What does a compliant device look like in your organization?"
+- "(e.g., Windows 11, encrypted disk, Windows Defender running, latest patches)"
+
+**External device access:**
+
+- "Do contractors, consultants, or VPN users access company data?"
+- "How do you verify those devices are safe?"
+
+**Disaster recovery:**
+
+- "What's your ransomware incident plan?"
+- "Where are backups stored and are they tested regularly?"
 
 **Planning the roadmap:**
 
