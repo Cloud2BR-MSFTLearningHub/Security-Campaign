@@ -95,25 +95,22 @@
 
 **Current state inventory to gather:**
 
-- Device inventory and enrollment
-  - How many devices (corporate, BYOD, shared, contractors)?
-  - Split by OS (Windows, macOS, iOS, Android).
-  - Enrollment rates for each group.
+Use this as a pre-meeting checklist. If an item is missing, that gap usually becomes the first workstream in the roadmap.
 
-- Compliance and security posture
-  - What percentage of enrolled devices meet baseline compliance policy?
-  - Which policies are most commonly violated (outdated OS, encryption disabled, antivirus off)?
-  - Do you have EDR (endpoint detection and response) deployed?
+| Area | What to bring | Decision this unlocks |
+| --- | --- | --- |
+| Device inventory and enrollment | Device count by ownership (corporate, BYOD, shared, contractor), OS split (Windows, macOS, iOS, Android), and enrollment rate by group | Which device groups can be moved to enforceable compliance first |
+| Compliance and security posture | Percent of enrolled devices meeting baseline, top policy failures (outdated OS, encryption disabled, antivirus off), and current EDR coverage | Whether to start with policy tuning, rollout sequencing, or endpoint protection gaps |
+| BYOD and external access model | Personal-device access policy, which data BYOD can reach, and controls used (app protection, Conditional Access, session controls) | Whether BYOD should stay app-only, become managed, or be restricted for sensitive data |
+| Support and incident capacity | Help desk capacity for enrollment/compliance, alert ownership model, and recent endpoint incidents (ransomware, lost/stolen devices) | How aggressive rollout can be without breaking operations |
 
-- BYOD and external device management
-  - Do you allow personal devices to access company data?
-  - If yes, what data and how is access controlled?
-  - How do you verify external devices are safe?
+**Minimum evidence set (high value):**
 
-- Support and incident capacity
-  - How many help desk staff support enrollment, Intune, and device issues?
-  - Who monitors endpoint alerts and how fast?
-  - Have you had endpoint compromises, ransomware, or lost/stolen devices?
+- Latest device inventory export by ownership and OS
+- Compliance report with top 5 failing controls
+- Current Conditional Access policies related to device trust
+- Endpoint alert ownership and escalation flow
+- Last ransomware or malware post-incident summary (if available)
 
 **Conversation starters:**
 
