@@ -154,31 +154,31 @@
 
 **Conversation starters:**
 
-1. **Incident history:**
-   - "Tell me about your most serious incident in the past 2 years."
-   - "How was it detected?"
-   - "How long from detection to containment?"
-   - "What could have been done faster?"
+- **Incident history:**
+  - "Tell me about your most serious incident in the past 2 years."
+  - "How was it detected?"
+  - "How long from detection to containment?"
+  - "What could have been done faster?"
 
-2. **Incident response speed:**
-   - "If an attacker compromised a critical server right now, how would you detect it?"
-   - "Who would you call? How long until the server is isolated?"
+- **Incident response speed:**
+  - "If an attacker compromised a critical server right now, how would you detect it?"
+  - "Who would you call? How long until the server is isolated?"
 
-3. **Alert volume and quality:**
-   - "How many alerts does your team receive per day?"
-   - "What % are false positives or known exceptions?"
+- **Alert volume and quality:**
+  - "How many alerts does your team receive per day?"
+  - "What % are false positives or known exceptions?"
 
-4. **SOC operations:**
-   - "Do you have 24/7 monitoring?"
-   - "If an incident happens at 2 AM on a Sunday, who responds?"
+- **SOC operations:**
+  - "Do you have 24/7 monitoring?"
+  - "If an incident happens at 2 AM on a Sunday, who responds?"
 
-5. **Incident playbooks:**
-   - "Walk me through your incident response playbook for ransomware."
-   - "How many manual steps? How many people are involved?"
+- **Incident playbooks:**
+  - "Walk me through your incident response playbook for ransomware."
+  - "How many manual steps? How many people are involved?"
 
-6. **AI and automation:**
-   - "Are you looking at Security Copilot or other AI tools?"
-   - "What problem are you trying to solve: alert fatigue, investigation speed, analyst shortage?"
+- **AI and automation:**
+  - "Are you looking at Security Copilot or other AI tools?"
+  - "What problem are you trying to solve: alert fatigue, investigation speed, analyst shortage?"
 
 **Planning the roadmap:**
 - **Phase 1 (30 days):** Inventory available logs and signals. Define high-priority incident scenarios (ransomware, data theft, credential compromise). Estimate current detection and response times for each.

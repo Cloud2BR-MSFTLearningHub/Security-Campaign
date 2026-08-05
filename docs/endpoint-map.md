@@ -117,23 +117,23 @@
 
 **Conversation starters:**
 
-1. **Device security:**
+- **Device security:**
    - "If a laptop gets stolen today, what's your recovery plan?"
    - "Can an attacker use cached credentials to access company data or cloud services?"
 
-2. **Incident response:**
+- **Incident response:**
    - "When you discover malware on a device, who gets called?"
    - "How long does investigation and remediation take?"
 
-3. **Compliance baseline:**
+- **Compliance baseline:**
    - "What does a compliant device look like in your organization?"
    - "(e.g., Windows 11, encrypted disk, Windows Defender running, latest patches)"
 
-4. **External device access:**
+- **External device access:**
    - "Do contractors, consultants, or VPN users access company data?"
    - "How do you verify those devices are safe?"
 
-5. **Disaster recovery:**
+- **Disaster recovery:**
    - "What's your ransomware incident plan?"
    - "Where are backups stored and are they tested regularly?"
 

@@ -172,27 +172,27 @@ A company uses Azure and AWS. The organization enforces encryption in Azure but 
 
 **Conversation starters:**
 
-1. **Risk and incident history:**
-   - "Walk me through a recent compromise or close call."
-   - "What was exposed, how long before you detected it?"
-   - "What could have helped you detect it sooner?"
+- **Risk and incident history:**
+  - "Walk me through a recent compromise or close call."
+  - "What was exposed, how long before you detected it?"
+  - "What could have helped you detect it sooner?"
 
-2. **Attack scenario:**
-   - "If I gained valid credentials for one of your cloud accounts, what's the fastest attack path to steal customer data?"
-   - "How would you detect me?"
+- **Attack scenario:**
+  - "If I gained valid credentials for one of your cloud accounts, what's the fastest attack path to steal customer data?"
+  - "How would you detect me?"
 
-3. **Resource hygiene:**
-   - "Which of your servers or databases haven't been touched in 2+ years?"
-   - "Why are they still running? Can they be decommissioned?"
+- **Resource hygiene:**
+  - "Which of your servers or databases haven't been touched in 2+ years?"
+  - "Why are they still running? Can they be decommissioned?"
 
-4. **Multi-cloud governance:**
-   - "What's your multi-cloud or hybrid security strategy?"
-   - "Do you have one team owning it or separate teams per cloud?"
-   - "Is there a configuration that's secure in Azure but not enforced in AWS?"
+- **Multi-cloud governance:**
+  - "What's your multi-cloud or hybrid security strategy?"
+  - "Do you have one team owning it or separate teams per cloud?"
+  - "Is there a configuration that's secure in Azure but not enforced in AWS?"
 
-5. **Disaster recovery:**
-   - "If you lost all production data today (ransomware, malicious deletion), how fast could you recover?"
-   - "Has that been tested end-to-end?"
+- **Disaster recovery:**
+  - "If you lost all production data today (ransomware, malicious deletion), how fast could you recover?"
+  - "Has that been tested end-to-end?"
 
 **Planning the roadmap:**
 

@@ -124,21 +124,21 @@
 
 **Conversation starters:**
 
-1. **Start with business risk:**
-   - "Have you had identity compromises, ransomware, or insider incidents? What was the impact?"
-   - This keeps the discussion focused on business impact, not just compliance.
+- **Start with business risk:**
+  - "Have you had identity compromises, ransomware, or insider incidents? What was the impact?"
+  - This keeps the discussion focused on business impact, not just compliance.
 
-2. **Validate the trust baseline:**
-   - "What makes an account trusted for sensitive access in your organization?"
-   - "How do you verify that today?"
+- **Validate the trust baseline:**
+  - "What makes an account trusted for sensitive access in your organization?"
+  - "How do you verify that today?"
 
-3. **Test the response model:**
-   - "If an admin account were compromised today, how would you detect it?"
-   - "What is your response plan in the first hour?"
+- **Test the response model:**
+  - "If an admin account were compromised today, how would you detect it?"
+  - "What is your response plan in the first hour?"
 
-4. **Confirm ownership and change control:**
-   - "Who approves identity policy exceptions?"
-   - "Who owns service principal permissions and secret rotation?"
+- **Confirm ownership and change control:**
+  - "Who approves identity policy exceptions?"
+  - "Who owns service principal permissions and secret rotation?"
 
 **Planning the roadmap:**
 
