@@ -39,9 +39,6 @@ extra_css:
 extra_javascript:
   - assets/js/logo-link.js
   - assets/js/external-links.js
-  - assets/js/campaign-data.js
-  - assets/js/recommendation-engine.js
-  - assets/js/campaign-app.js
 extra:
   generator: false
   social:
@@ -49,5 +46,11 @@ extra:
       link: https://github.com/Cloud2BR-MSFTLearningHub
       name: Cloud2BR OSS - Learning Hub
 nav:
-  - Decision map: index.md
+  - Start here: index.md
+  - Decision maps:
+      - Identity and access: identity-access.md
+      - Endpoints and devices: endpoint-map.md
+      - Cloud workloads: cloud-workload-map.md
+      - Data and AI: data-ai-map.md
+      - Security operations: security-operations-map.md
   - Methodology: overview.md

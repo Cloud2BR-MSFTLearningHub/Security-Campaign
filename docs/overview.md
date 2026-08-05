@@ -1,14 +1,5 @@
 # Methodology
 
-Atlanta, USA
-
-[![GitHub](https://img.shields.io/badge/--181717?logo=github&logoColor=ffffff)](https://github.com/)
-[Cloud2BR OSS - Learning Hub](https://github.com/Cloud2BR-MSFTLearningHub)
-
-Last updated: 2026-08-04
-
-----------
-
 <details markdown>
 <summary>List of references</summary>
 
@@ -23,9 +14,9 @@ Last updated: 2026-08-04
 
 </details>
 
-Security Campaign turns a small set of customer conditions into an explainable,
-ordered implementation map. It is designed for joint conversations between
-business stakeholders, architects, security teams, and administrators.
+Security Campaign is a set of condition-led decision maps. It is designed for
+joint conversations between business stakeholders, architects, security teams,
+and administrators.
 
 ## Why it matters
 
@@ -34,26 +25,14 @@ and operating readiness should be understood before advanced controls or AI
 capabilities are introduced. The map makes those dependencies visible while
 keeping each specialist setup hub authoritative for implementation detail.
 
-## How it works
+## How the maps work
 
-The questionnaire records explicit values, including `Unknown`. The browser-only
-rule engine evaluates each product against three types of conditions:
+Each map begins with a customer condition: a service, data type, device group,
+identity, or operating need. It then links that condition to a security element
+worth examining and names the evidence and owners needed to decide scope.
 
-- **Applicability** determines whether a hub belongs in the campaign.
-- **Readiness** identifies a capability that exists and should be optimized.
-- **Dependencies** identify prerequisite hubs that must be addressed first.
-
-Each applicable recommendation receives one status:
-
-| Status | Meaning |
-| --- | --- |
-| Recommended | The condition creates a current implementation action. |
-| Discovery needed | Evidence is missing; resolve the unknown before committing scope. |
-| Prerequisite gap | The capability is relevant but a required foundation is outside the current result set. |
-| Established / optimize | The capability exists; validate operation and improve it. |
-
-All result views use the same evaluated result set. The matrix is useful for
-qualification, tracks group work by domain, and the roadmap orders work by phase.
+The maps are intentionally not a product selector. A product should be discussed
+only when the corresponding customer condition and operating ownership exist.
 
 ## Campaign sequence
 
@@ -64,14 +43,14 @@ qualification, tracks group work by domain, and the roadmap orders work by phase
 5. Govern access, data, devices, exceptions, and assurance evidence.
 6. Optimize mature workflows with Security Copilot and Agent 365.
 
-Not every assessment produces an item in every phase. Empty phases are retained
-in the roadmap to make the model and sequencing explicit.
+Not every customer needs every route. Identity and ownership normally precede
+controls; controls and telemetry precede broad automation and AI use cases.
 
 ## Privacy and boundaries
 
-The assessment does not authenticate to a Microsoft tenant, call Microsoft Graph,
-or store customer answers on a server. State exists only in the current browser
-page. Print, Markdown, and JSON exports are generated locally.
+The maps do not authenticate to a Microsoft tenant, call Microsoft Graph, or
+store customer information. Capture customer notes only in the approved project
+or engagement system.
 
 !!! warning
  A recommendation is not evidence of configuration, entitlement, compliance,
@@ -80,11 +59,11 @@ page. Print, Markdown, and JSON exports are generated locally.
 
 ## Get started
 
-1. Complete every condition using the closest available answer.
-2. Review discovery items and assign evidence owners.
-3. Use the matrix to agree scope and the roadmap to agree sequencing.
-4. Open the linked specialist hubs for implementation details.
-5. Export the result and record assumptions, approvals, and exclusions.
+1. Identify the customer services, users, data, and operational needs in scope.
+2. Open the matching decision map and work through its decision points.
+3. Assign evidence and ownership for the relevant security element.
+4. Open the linked specialist hub for implementation details.
+5. Record assumptions, approvals, exclusions, and the first pilot scope.
 
 ## Business example
 

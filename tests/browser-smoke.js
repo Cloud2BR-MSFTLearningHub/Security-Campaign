@@ -5,6 +5,7 @@ const { chromium } = require("playwright");
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    const baseUrl = "http://127.0.0.1:8000/Security-Campaign/";
     const errors = [];
     page.on("response", (response) => {
       const optionalReleaseLookup = response.url().endsWith("/Security-Campaign/releases/latest");
@@ -12,46 +13,32 @@ const { chromium } = require("playwright");
     });
     page.on("pageerror", (error) => errors.push(error.message));
 
-  await page.goto("http://127.0.0.1:8000/", { waitUntil: "domcontentloaded" });
-  await page.locator(".campaign-map").waitFor();
-  assert.equal(await page.locator(".campaign-question").count(), 15);
-  assert.equal(await page.locator(".question-group").count(), 6);
-  await page.check('input[name="m365"][value="e5"]');
-  await page.check('input[name="identity"][value="hybrid"]');
-  await page.check('input[name="identityBaseline"][value="partial"]');
-  await page.check('input[name="cloudEstate"][value="multi"]');
-  await page.check('input[name="devices"][value="unmanaged"]');
-  await page.check('input[name="soc"][value="sentinel"]');
-  await page.check('input[name="data"][value="required"]');
-  await page.check('input[name="ai"][value="both"]');
+    await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
+    await page.locator(".route-grid").waitFor();
+    assert.equal(await page.locator(".route-card").count(), 5);
+    assert.equal(await page.locator(".decision-tree .tree-node").count(), 5);
 
-  assert.equal(await page.locator(".result-card").count(), 4);
-  assert.equal(await page.locator(".metric-grid article").first().locator("strong").textContent(), "8");
+    const maps = [
+      ["identity-access/", "Identity and Access Map", "Microsoft Entra"],
+      ["endpoint-map/", "Endpoint and Device Map", "Microsoft Intune"],
+      ["cloud-workload-map/", "Cloud Workload Map", "Defender for Cloud"],
+      ["data-ai-map/", "Data and AI Map", "Microsoft Purview"],
+      ["security-operations-map/", "Security Operations Map", "Microsoft Sentinel"]
+    ];
 
-  await page.click('[data-view="roadmap"]');
-  await page.click('[data-audience="technical"]');
-  assert.equal(await page.locator(".roadmap-phase").count(), 6);
-  assert.ok(await page.getByText("Next action", { exact: true }).count() >= 1);
+    for (const [path, heading, product] of maps) {
+      await page.goto(new URL(path, baseUrl).toString(), { waitUntil: "domcontentloaded" });
+      assert.ok((await page.locator("h1").textContent()).startsWith(heading));
+      assert.equal(await page.locator(".map-flow .map-step").count(), 3);
+      assert.ok(await page.getByText(product, { exact: false }).count() >= 1);
+    }
 
-  await page.click('[data-view="talkTracks"]');
-  assert.equal(await page.locator(".talk-track-card").count(), 7);
-  assert.ok(await page.getByText("Ask the customer", { exact: true }).count() >= 7);
-  assert.ok(await page.getByText("Microsoft Security Copilot", { exact: true }).count() >= 1);
+    await page.locator("header a.md-logo").click();
+    await page.locator(".route-grid").waitFor();
+    assert.equal(new URL(page.url()).pathname, "/Security-Campaign/");
+    assert.deepEqual(errors, []);
 
-  const markdownDownload = page.waitForEvent("download");
-  await page.click("#campaign-markdown");
-  assert.equal((await markdownDownload).suggestedFilename(), "security-campaign-assessment.md");
-
-  const jsonDownload = page.waitForEvent("download");
-  await page.click("#campaign-json");
-  assert.equal((await jsonDownload).suggestedFilename(), "security-campaign-assessment.json");
-
-  await page.locator("header a.md-logo").click();
-  await page.locator(".campaign-map").waitFor();
-  assert.equal(new URL(page.url()).pathname, "/Security-Campaign/");
-  assert.deepEqual(errors, []);
-
-    console.log("Validated assessment interaction, all result views, exports, and root brand navigation.");
+    console.log("Validated decision-map landing page, all focused maps, and root brand navigation.");
   } finally {
     await browser.close();
   }
