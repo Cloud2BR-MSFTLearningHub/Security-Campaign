@@ -16,6 +16,15 @@
 .md-typeset a { color: var(--brand-blue); }
 .md-typeset a:hover { color: var(--brand-blue-hover); }
 
+/* Keep decision-map guidance readable as real vertical bullet lists. */
+.md-typeset ul {
+  list-style: disc;
+  margin: 0.75em 0;
+  padding-left: 1.5em;
+}
+.md-typeset li { display: list-item; margin: 0.35em 0; }
+.md-typeset ul ul { list-style: circle; margin: 0.25em 0; }
+
 /* Keep large images within the content column */
 .md-typeset img { max-width: 100%; height: auto; }
 
