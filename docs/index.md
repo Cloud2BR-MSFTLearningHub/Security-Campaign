@@ -17,27 +17,67 @@ Use this mind map to spot the biggest gap in each area, then open the matching m
 <div class="markmap-frame" markdown>
 ```markmap
 # Security decision map
-## [Identity and access](identity-access/)
-- MFA gap → start with Conditional Access and MFA
-- Standing admin access → move to PIM just-in-time access
-- Apps or agents ungoverned → set up workload identities
-## [Endpoints and devices](endpoint-map/)
-- Devices not enrolled → start with Intune enrollment
-- BYOD accessing data → apply app protection policies
-- Alerts not investigated → expand Defender for Endpoint
-## [Cloud workloads](cloud-workload-map/)
-- VMs or servers → Defender for Servers
-- Containers or Kubernetes → Defender for Containers
-- Databases or storage → Defender for Databases and Storage
-- Internet-facing APIs → API security and workload identities
-## [Data and AI](data-ai-map/)
-- Sensitive data not classified → run a data taxonomy workshop
-- DLP not enforced → apply sensitivity labels and DLP
-- Agents access internal data → set agent governance and audit logging
-## [Security operations](security-operations-map/)
-- Logs not centralized → close gaps with Sentinel
-- Alert ownership unclear → define escalation paths and playbooks
-- Analysts stuck on manual tasks → introduce Security Copilot
+## Start with the customer environment
+### Who or what needs access?
+#### People, guests, administrators, applications, or agents
+##### [Identity and access](identity-access/)
+###### Is phishing-resistant MFA enforced for high-risk users and administrators?
+####### No: establish Entra authentication methods and Conditional Access
+####### Yes: verify passwordless adoption and coverage
+###### Can administrators obtain permanent broad roles?
+####### Yes: move standing access to just-in-time PIM elevation
+####### No: review privileged roles and emergency access regularly
+###### Do applications, services, or agents act for the business?
+####### Yes: inventory workload identities, permissions, secrets, and agent boundaries
+### Are endpoints accessing company data?
+#### Corporate devices, BYOD, shared devices, or unmanaged devices
+##### [Endpoints and devices](endpoint-map/)
+###### Are all corporate devices enrolled and compliant?
+####### No: start with Intune enrollment, encryption, updates, and antivirus baselines
+####### Yes: resolve recurring compliance failures before adding stricter access rules
+###### Do personal devices need corporate data access?
+####### Yes: apply Intune app protection and Conditional Access
+###### Can unmanaged or non-compliant devices access sensitive data?
+####### Yes: require a compliant device, apply app protection, or block the access path
+###### Are endpoint alerts investigated and remediated?
+####### No: define alert ownership and expand Defender for Endpoint coverage
+### Are cloud services in scope?
+#### Compute, containers, databases, storage, applications, APIs, or network services
+##### [Cloud workloads](cloud-workload-map/)
+###### Does the customer run virtual machines, servers, or hybrid compute?
+####### Yes: assess patches, vulnerabilities, endpoint protection, and privileged access
+####### Start with Defender for Servers
+###### Does the customer run containers or Kubernetes?
+####### Yes: scan images, review cluster posture, and enable runtime protection
+####### Start with Defender for Containers
+###### Does cloud storage or a database hold critical or regulated data?
+####### Yes: review public access, encryption, data classification, backups, and suspicious access
+####### Start with Defender for Storage or database protection
+###### Are applications or APIs internet-facing?
+####### Yes: review authentication, secrets, dependencies, rate limiting, and logging
+### Is sensitive data or AI involved?
+#### Microsoft 365, SaaS, databases, storage, endpoints, copilots, or agents
+##### [Data and AI](data-ai-map/)
+###### Can the customer name the data with the highest business or regulatory risk?
+####### No: run a data-owner workshop and create a data taxonomy
+####### Yes: map data types, locations, owners, access, retention, and obligations
+###### Are sensitivity labels and DLP tested before enforcement?
+####### No: begin in report-only mode, review impact, then enforce refined policies
+###### Does sensitive data leave Microsoft 365 through endpoints, SaaS, or cloud storage?
+####### Yes: extend DLP and Conditional Access across the full data path
+###### Will an agent or copilot access internal data or connected tools?
+####### Yes: define data boundaries, workload identity, approvals, audit logs, and rollback
+### Does the customer need detection or response?
+#### Identity, endpoint, cloud, network, data, or SaaS signals
+##### [Security operations](security-operations-map/)
+###### Which incident types create the highest business disruption?
+####### Prioritize ransomware, data theft, credential compromise, privileged abuse, or outage scenarios
+###### Are identity, endpoint, cloud, network, and SaaS logs collected?
+####### No: close the highest-impact logging gaps first with Sentinel connectors
+###### Who owns an alert after it is created?
+####### Ownership unclear: define severity, escalation paths, on-call cover, and containment authority
+###### Are analysts spending time on repetitive investigation or reporting?
+####### Yes: automate stable playbooks and evaluate Security Copilot after data and alert quality are sound
 ```
 </div>
 <script defer src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17"></script>
