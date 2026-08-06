@@ -29,7 +29,11 @@ markdown_extensions:
   - md_in_html
   - tables
   - pymdownx.highlight
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: markmap
+          class: markmap
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tasklist:
       custom_checkbox: true
   - toc:
@@ -39,6 +43,7 @@ extra_css:
 extra_javascript:
   - assets/js/logo-link.js
   - assets/js/external-links.js
+  - https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17
 extra:
   generator: false
   social:
