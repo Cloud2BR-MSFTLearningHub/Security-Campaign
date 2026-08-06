@@ -43,7 +43,6 @@ extra_css:
 extra_javascript:
   - assets/js/logo-link.js
   - assets/js/external-links.js
-  - https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17
 extra:
   generator: false
   social:

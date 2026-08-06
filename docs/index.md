@@ -40,6 +40,7 @@ Use this mind map to spot the biggest gap in each area, then open the matching m
 - Analysts stuck on manual tasks → introduce Security Copilot
 ```
 </div>
+<script defer src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17"></script>
 
 ## Start with the customer environment
 
