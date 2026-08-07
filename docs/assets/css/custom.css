@@ -113,12 +113,14 @@
 .md-typeset blockquote { border-left-color: #006f84; color: #365263; }
 .markmap-frame { background: #f8fafc; border: 1px solid #d7e2ec; border-radius: 10px; margin: 1.5rem 0 2.25rem; padding: .5rem; }
 .markmap-frame pre.markmap,
-.markmap-frame .markmap { background: transparent; border: 0; display: block; height: 34rem; margin: 0; padding: 0; width: 100%; }
+.markmap-frame .markmap { background: transparent; border: 0; display: block; height: 44rem; margin: 0; padding: 0; width: 100%; }
 .markmap-frame svg.markmap { height: 100%; width: 100%; }
 @media screen and (max-width: 56rem) {
   .route-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .map-flow { grid-template-columns: 1fr; }
   .map-arrow { justify-self: center; transform: rotate(90deg); }
+  .markmap-frame pre.markmap,
+  .markmap-frame .markmap { height: 36rem; }
 }
 @media screen and (max-width: 34rem) { .route-grid { grid-template-columns: 1fr; } }
 
