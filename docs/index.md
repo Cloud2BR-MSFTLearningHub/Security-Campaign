@@ -12,10 +12,12 @@ Use these decision maps to turn a customer environment into the security convers
 
 ## Security decision map
 
-Use this mind map to spot the biggest gap in each area, then open the matching map for a detailed conversation. Click a branch title to jump straight to its map, and drag or scroll to explore.
-
 <div class="markmap-frame" markdown>
 ```markmap
+---
+markmap:
+    initialExpandLevel: 2
+---
 # Security decision map
 ## Identity and access
 - Question: Who needs access to business services or data?
