@@ -13,6 +13,9 @@
 - [Microsoft Defender for Endpoint overview](https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint)
 - [Microsoft Defender for Cloud Apps overview](https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps)
 - [Microsoft Sentinel automation rules](https://learn.microsoft.com/en-us/azure/sentinel/automate-incident-handling-with-automation-rules)
+- [Microsoft Entra Privileged Identity Management](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure)
+- [Manage mailbox permissions in Exchange Online](https://learn.microsoft.com/en-us/exchange/recipients-in-exchange-online/manage-permissions-for-recipients)
+- [Microsoft Purview data security and governance for Microsoft 365 Copilot](https://learn.microsoft.com/en-us/purview/ai-microsoft-purview)
 
 </details>
 
@@ -142,6 +145,73 @@ unusual cloud-storage transfer occurs outside normal working patterns.
 activity visibility, and governance; Microsoft Purview for sensitive-data
 classification and DLP; Microsoft Entra for access and session controls;
 Microsoft Sentinel for log correlation, detection, and incident response.
+
+## 6. Business email compromise or payment fraud request
+
+**Customer signal:** Finance receives an urgent request to change bank details,
+approve an invoice, redirect a payment, or share payroll data. The sender may
+impersonate an executive, supplier, or a compromised employee mailbox.
+
+```mermaid
+flowchart LR
+    A[Payment or bank-change request] --> B[Verify through known channel]
+    B --> C{Authorized and expected?}
+    C -->|Yes| D[Record business approval]
+    C -->|No or uncertain| E[Hold payment and investigate]
+    E --> F[Review mailbox, sign-in, and message evidence]
+    F --> G[Contain compromise and improve controls]
+```
+
+| What to gather | Technical actions to plan | Validate before closing the use case |
+| --- | --- | --- |
+| Original request, supplier contact on record, invoice or bank-change details, approver, message headers, mailbox rules, delegate access, sign-in events, and payment status | Require out-of-band verification through a known supplier contact; investigate message origin and mailbox rules; review delegated and shared-mailbox access; protect high-risk finance users with phishing-resistant authentication and targeted anti-phishing controls | Finance can prove that a payment or bank change was independently verified, the affected mailbox and identity were investigated, suspicious forwarding or delegate changes were removed, and the payment process has a named exception authority |
+
+**Core control path:** Microsoft Defender for Office 365 for impersonation and
+mail investigation; Microsoft Entra for strong authentication and risky-sign-in
+follow-up; Exchange Online for mailbox permission and forwarding review;
+Microsoft Sentinel for cross-signal investigation where payment-fraud cases need
+consistent triage and evidence retention.
+
+## 7. Privileged-access abuse or exposed administrator account
+
+**Customer signal:** An administrator account has permanent broad access, an
+unexpected role assignment occurs, emergency access is used, or a privileged
+sign-in originates from an unfamiliar device or location.
+
+| What to gather | Technical actions to plan | Validate before closing the use case |
+| --- | --- | --- |
+| Role assignments, activation history, approvals, administrator sign-ins, device compliance, emergency-access records, service principals, and affected resources | Inventory permanent privileged roles; require just-in-time elevation with approval for high-impact roles; separate daily and administrator accounts; protect privileged access with Conditional Access and phishing-resistant authentication; alert on role changes and emergency-account use | Every broad role has a business owner and review cadence, just-in-time access is tested for a pilot role, emergency accounts are controlled and monitored, and the team can trace a high-impact administrative change to an approved identity and ticket |
+
+**Core control path:** Microsoft Entra Privileged Identity Management for
+eligible assignments, approvals, activation, and access reviews; Conditional
+Access and device compliance for privileged sign-ins; Microsoft Sentinel for
+role-change and high-risk sign-in correlation.
+
+## 8. Copilot or AI agent needs access to internal data and tools
+
+**Customer signal:** A business team wants a copilot or agent to search internal
+content, summarize customer records, create tickets, or act through connected
+systems, but owners cannot yet describe its data boundary or approval path.
+
+```mermaid
+flowchart LR
+    A[Proposed agent capability] --> B[Name owner, data, and connected actions]
+    B --> C[Apply least-privilege identity and data boundary]
+    C --> D[Run controlled pilot with audit]
+    D --> E{Evidence and business value acceptable?}
+    E -->|No| F[Reduce scope or remediate controls]
+    F --> C
+    E -->|Yes| G[Approve staged expansion]
+```
+
+| What to gather | Technical actions to plan | Validate before enabling broad access |
+| --- | --- | --- |
+| Business owner, intended users, data sources, permissions, connected actions, sensitivity labels, retention requirements, audit events, human approval points, and rollback owner | Use a dedicated least-privilege identity; restrict agent data sources to an approved subset; apply Purview labels and DLP where appropriate; require human approval for consequential actions; log prompts, actions, and failures in the approved operational system | A pilot demonstrates the agent cannot access unapproved data or perform unapproved actions, audit evidence identifies the user and agent activity, data owners approve the boundary, and the team can disable or roll back the integration quickly |
+
+**Core control path:** Microsoft Entra workload identities and least-privilege
+permissions; Microsoft Purview for data classification and protection; Microsoft
+Defender and Sentinel for monitoring relevant identity, endpoint, cloud, and data
+signals. Expand only after ownership, auditing, and response authority are clear.
 
 ## Turn a concern into a technical pilot
 
