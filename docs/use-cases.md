@@ -47,10 +47,10 @@ flowchart LR
 | --- | --- | --- |
 | Original message, recipient list, message ID, full headers, URLs, attachment hashes, reported time, and user actions | Enable and test user reporting; investigate message delivery and URLs; search for matching messages; assess whether a credential was entered; review sign-in, mailbox-rule, and endpoint activity | An owner can determine scope, remove or quarantine related messages where appropriate, contain affected identities or devices, and document why the message was benign or malicious |
 
-**Core control path:** Microsoft Defender for Office 365 for reporting,
-investigation, and remediation; Microsoft Entra ID Protection and Conditional
-Access for risky identity follow-up; Microsoft Defender for Endpoint when the
-user opened a file or link; Microsoft Sentinel when the organization needs
+**Core control path:** [Microsoft Defender for Office 365](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for reporting,
+investigation, and remediation; [Microsoft Entra ID Protection](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) and [Conditional
+Access](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) for risky identity follow-up; [Microsoft Defender for Endpoint](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) when the
+user opened a file or link; [Microsoft Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) when the organization needs
 cross-signal investigation and repeatable response automation.
 
 **Implementation example:** Start with a pilot group that can report messages
@@ -80,10 +80,10 @@ flowchart LR
 | --- | --- | --- |
 | Data types and regulations, business owners, Microsoft 365 locations, endpoints, SaaS applications, cloud storage, current labels, and known exceptions | Define sensitive information types and, where justified, trainable classifiers; create sensitivity labels; configure DLP policies in simulation; add Endpoint DLP for USB, print, browser, and untrusted-cloud actions | Detection matches the intended PII, policy hits have business-owner review, exceptions are time-bound and approved, and users receive understandable policy tips |
 
-**Core control path:** Microsoft Purview Information Protection and DLP for
-classification and prevention; Endpoint DLP for local-device movement; Microsoft
-Defender for Cloud Apps for sanctioned/unsanctioned SaaS discovery and monitoring;
-Microsoft Sentinel for correlation with identity or data-access signals.
+**Core control path:** [Microsoft Purview Information Protection and DLP](https://cloud2br-msftlearninghub.github.io/Purview-Setup-Overview/overview/) for
+classification and prevention; [Endpoint DLP](https://cloud2br-msftlearninghub.github.io/Purview-Setup-Overview/overview/) for local-device movement; [Microsoft
+Defender for Cloud Apps](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for sanctioned/unsanctioned SaaS discovery and monitoring;
+[Microsoft Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for correlation with identity or data-access signals.
 
 **Implementation example:** Begin with one high-value data type, such as customer
 payment details. Run a DLP policy in simulation for four weeks across Exchange,
@@ -101,9 +101,9 @@ activity.
 | --- | --- | --- |
 | User, timestamps, IP addresses, device IDs, sign-in and audit logs, MFA method changes, Conditional Access results, privileged roles, and applications accessed | Review risky users and sign-ins; revoke sessions when compromise is credible; reset credentials and verify MFA methods; review mailbox rules, OAuth consent, and privileged-role activations; hunt for related sign-ins | The identity has a known owner, sessions and high-risk tokens are addressed, MFA methods are verified, privileged access is reviewed, and the user/device receives a clean bill of health or a documented remediation plan |
 
-**Core control path:** Microsoft Entra ID Protection for risk signals, Entra
-Conditional Access for risk-based access decisions and trusted-device
-requirements, Defender for Endpoint for device context, and Sentinel for
+**Core control path:** [Microsoft Entra ID Protection](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) for risk signals, [Entra
+Conditional Access](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) for risk-based access decisions and trusted-device
+requirements, [Defender for Endpoint](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for device context, and [Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for
 correlating sign-in activity with email, endpoint, and cloud events.
 
 ## 4. Ransomware or suspicious endpoint behavior
@@ -127,9 +127,9 @@ flowchart LR
 | --- | --- | --- |
 | Device name, user, alert timeline, process tree, file paths, persistence details, network destinations, backup state, and business criticality | Define isolation authority; enable endpoint detection and response; connect identity and endpoint telemetry; test device isolation and recovery; prepare ransomware, credential-compromise, and critical-server playbooks | The team can isolate a non-production test device, retain required evidence, identify affected identities and neighboring assets, recover from known-good backups, and record who approves each containment action |
 
-**Core control path:** Microsoft Defender for Endpoint for detection,
-investigation, and device containment; Microsoft Defender for Cloud for server
-and workload posture where relevant; Microsoft Sentinel for incident
+**Core control path:** [Microsoft Defender for Endpoint](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for detection,
+investigation, and device containment; [Microsoft Defender for Cloud](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for server
+and workload posture where relevant; [Microsoft Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for incident
 orchestration, cross-domain hunting, and automation rules.
 
 ## 5. Possible SaaS or cloud data exfiltration
@@ -141,10 +141,10 @@ unusual cloud-storage transfer occurs outside normal working patterns.
 | --- | --- | --- |
 | Application name, actor, data owner, export scope, audit-log retention, destination, network context, approved business process, and current access model | Onboard the relevant SaaS and cloud audit logs; establish baselines for export volume and privileged actions; require least-privilege access; review external sharing; correlate export activity with risky sign-ins and managed-device status | The organization can identify who exported which data, whether access was authorized, where the data went, which logs prove the finding, and which control prevents recurrence |
 
-**Core control path:** Microsoft Defender for Cloud Apps for SaaS discovery,
-activity visibility, and governance; Microsoft Purview for sensitive-data
-classification and DLP; Microsoft Entra for access and session controls;
-Microsoft Sentinel for log correlation, detection, and incident response.
+**Core control path:** [Microsoft Defender for Cloud Apps](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for SaaS discovery,
+activity visibility, and governance; [Microsoft Purview](https://cloud2br-msftlearninghub.github.io/Purview-Setup-Overview/overview/) for sensitive-data
+classification and DLP; [Microsoft Entra](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) for access and session controls;
+[Microsoft Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for log correlation, detection, and incident response.
 
 ## 6. Business email compromise or payment fraud request
 
@@ -166,10 +166,10 @@ flowchart LR
 | --- | --- | --- |
 | Original request, supplier contact on record, invoice or bank-change details, approver, message headers, mailbox rules, delegate access, sign-in events, and payment status | Require out-of-band verification through a known supplier contact; investigate message origin and mailbox rules; review delegated and shared-mailbox access; protect high-risk finance users with phishing-resistant authentication and targeted anti-phishing controls | Finance can prove that a payment or bank change was independently verified, the affected mailbox and identity were investigated, suspicious forwarding or delegate changes were removed, and the payment process has a named exception authority |
 
-**Core control path:** Microsoft Defender for Office 365 for impersonation and
-mail investigation; Microsoft Entra for strong authentication and risky-sign-in
+**Core control path:** [Microsoft Defender for Office 365](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) for impersonation and
+mail investigation; [Microsoft Entra](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) for strong authentication and risky-sign-in
 follow-up; Exchange Online for mailbox permission and forwarding review;
-Microsoft Sentinel for cross-signal investigation where payment-fraud cases need
+[Microsoft Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for cross-signal investigation where payment-fraud cases need
 consistent triage and evidence retention.
 
 ## 7. Privileged-access abuse or exposed administrator account
@@ -182,9 +182,9 @@ sign-in originates from an unfamiliar device or location.
 | --- | --- | --- |
 | Role assignments, activation history, approvals, administrator sign-ins, device compliance, emergency-access records, service principals, and affected resources | Inventory permanent privileged roles; require just-in-time elevation with approval for high-impact roles; separate daily and administrator accounts; protect privileged access with Conditional Access and phishing-resistant authentication; alert on role changes and emergency-account use | Every broad role has a business owner and review cadence, just-in-time access is tested for a pilot role, emergency accounts are controlled and monitored, and the team can trace a high-impact administrative change to an approved identity and ticket |
 
-**Core control path:** Microsoft Entra Privileged Identity Management for
-eligible assignments, approvals, activation, and access reviews; Conditional
-Access and device compliance for privileged sign-ins; Microsoft Sentinel for
+**Core control path:** [Microsoft Entra Privileged Identity Management](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) for
+eligible assignments, approvals, activation, and access reviews; [Conditional
+Access](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) and [device compliance](https://cloud2br-msftlearninghub.github.io/Intune-Overview/implementation/compliance-and-conditional-access/) for privileged sign-ins; [Microsoft Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for
 role-change and high-risk sign-in correlation.
 
 ## 8. Copilot or AI agent needs access to internal data and tools
@@ -208,9 +208,9 @@ flowchart LR
 | --- | --- | --- |
 | Business owner, intended users, data sources, permissions, connected actions, sensitivity labels, retention requirements, audit events, human approval points, and rollback owner | Use a dedicated least-privilege identity; restrict agent data sources to an approved subset; apply Purview labels and DLP where appropriate; require human approval for consequential actions; log prompts, actions, and failures in the approved operational system | A pilot demonstrates the agent cannot access unapproved data or perform unapproved actions, audit evidence identifies the user and agent activity, data owners approve the boundary, and the team can disable or roll back the integration quickly |
 
-**Core control path:** Microsoft Entra workload identities and least-privilege
-permissions; Microsoft Purview for data classification and protection; Microsoft
-Defender and Sentinel for monitoring relevant identity, endpoint, cloud, and data
+**Core control path:** [Microsoft Entra](https://cloud2br-msftlearninghub.github.io/Entra-Overview/implementation/tenant-setup-and-baseline/) workload identities and least-privilege
+permissions; [Microsoft Purview](https://cloud2br-msftlearninghub.github.io/Purview-Setup-Overview/overview/) for data classification and protection; [Microsoft
+Defender](https://cloud2br-msftlearninghub.github.io/Defender-Setup-Overview/00-overview/) and [Sentinel](https://cloud2br-msftlearninghub.github.io/Sentinel-Setup-Overview/00-overview/) for monitoring relevant identity, endpoint, cloud, and data
 signals. Expand only after ownership, auditing, and response authority are clear.
 
 ## Turn a concern into a technical pilot
