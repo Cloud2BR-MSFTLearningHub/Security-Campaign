@@ -12,6 +12,8 @@ Use these decision maps to turn a customer environment into the security convers
 
 ## Security decision map
 
+<div id="security-campaign-app" class="campaign-app"></div>
+
 <div class="markmap-frame" markdown>
 ```markmap
 ---
@@ -104,7 +106,6 @@ markmap:
 - 5. Introduce [Microsoft Security Copilot](https://cloud2br-msftlearninghub.github.io/Security-Copilot-Overview/) and [Microsoft Agent 365](https://cloud2br-msftlearninghub.github.io/Agent365-Overview/) after ownership, identity, data boundaries, and telemetry are operating reliably
 ```
 </div>
-<script defer src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17"></script>
 
 ## Start with the customer environment
 

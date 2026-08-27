@@ -7,7 +7,7 @@
   const catalog = window.SecurityCampaignData;
   const engine = window.SecurityCampaignEngine;
   const defaults = Object.fromEntries(catalog.questions.map((question) => [question.id, question.options[0][0]]));
-  const state = { answers: { ...defaults }, activeView: "summary", audience: "executive" };
+  const state = { answers: { ...defaults }, activeQuestionIndex: 0, activeView: "summary", audience: "executive" };
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
@@ -32,7 +32,7 @@
     return catalog.questions.map((question, index) => {
       const group = question.group !== currentGroup ? `<div class="question-group">${escapeHtml(question.group)}</div>` : "";
       currentGroup = question.group;
-      return `${group}<fieldset class="campaign-question">
+      return `${group}<fieldset class="campaign-question${index === state.activeQuestionIndex ? " is-active" : ""}" data-question-index="${index}">
         <legend><span>${String(index + 1).padStart(2, "0")}</span>${escapeHtml(question.label)}</legend>
         <p>${escapeHtml(question.help)}</p>
         <div class="campaign-options">
@@ -113,6 +113,19 @@
     document.getElementById("campaign-progress-fill").style.width = `${(confirmed / catalog.questions.length) * 100}%`;
   }
 
+  function renderQuestionContext() {
+    const question = catalog.questions[state.activeQuestionIndex];
+    const answer = answerLabel(question, state.answers[question.id]);
+    document.getElementById("campaign-question-context").innerHTML = `<p><strong>Question ${state.activeQuestionIndex + 1} of ${catalog.questions.length}</strong><span>${escapeHtml(answer)}</span></p><div><button type="button" data-question-step="previous" ${state.activeQuestionIndex === 0 ? "disabled" : ""}>Previous</button><button type="button" data-question-step="next" ${state.activeQuestionIndex === catalog.questions.length - 1 ? "disabled" : ""}>Next</button></div>`;
+  }
+
+  function setActiveQuestion(index, shouldScroll = true) {
+    state.activeQuestionIndex = Math.max(0, Math.min(index, catalog.questions.length - 1));
+    document.querySelectorAll(".campaign-question").forEach((question, questionIndex) => question.classList.toggle("is-active", questionIndex === state.activeQuestionIndex));
+    renderQuestionContext();
+    if (shouldScroll) document.querySelector(`.campaign-question[data-question-index="${state.activeQuestionIndex}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
   function exportPayload() {
     const results = engine.evaluate(state.answers, catalog);
     return { generatedAt: new Date().toISOString(), catalogVersion: catalog.version, advisoryOnly: true, answers: Object.fromEntries(catalog.questions.map((question) => [question.label, answerLabel(question, state.answers[question.id])])), recommendations: results.map(({ id, product, track, phase, phaseName, status, reason, action, source, missing, conversation }) => ({ id, product, track, phase, phaseName, status, reason, action, missing, source, conversation })) };
@@ -137,16 +150,18 @@
     download("security-campaign-assessment.md", lines.join("\n"), "text/markdown");
   }
 
-  app.innerHTML = `<div class="campaign-map"><aside class="campaign-assessment"><div class="panel-heading"><div><p class="eyebrow">Current state</p><h2>Map the environment</h2></div><button class="icon-button" id="campaign-reset" title="Reset assessment" aria-label="Reset assessment">${icon("reset")}</button></div><div class="completion"><div class="completion-track"><div id="campaign-progress-fill" class="completion-fill"></div></div><p id="campaign-completion" class="completion-text"></p></div><form id="campaign-form">${renderQuestions()}</form></aside>
+  app.innerHTML = `<div class="campaign-map"><aside class="campaign-assessment"><div class="panel-heading"><div><p class="eyebrow">Current state</p><h2>Map the environment</h2></div><button class="icon-button" id="campaign-reset" title="Reset assessment" aria-label="Reset assessment">${icon("reset")}</button></div><div class="completion"><div class="completion-track"><div id="campaign-progress-fill" class="completion-fill"></div></div><p id="campaign-completion" class="completion-text"></p></div><div id="campaign-question-context" class="campaign-question-context"></div><form id="campaign-form">${renderQuestions()}</form></aside>
     <main class="campaign-results"><div class="panel-heading result-heading"><div><p class="eyebrow">Recommendation engine</p><h2>Your campaign</h2></div><div class="audience-toggle" aria-label="Result detail"><button data-audience="executive" aria-pressed="true">Executive</button><button data-audience="technical" aria-pressed="false">Technical</button></div></div>
     <div class="result-toolbar"><div class="result-tabs" role="tablist" aria-label="Result views"><button data-view="summary" aria-selected="true">Summary</button><button data-view="matrix">Matrix</button><button data-view="tracks">Tracks</button><button data-view="talkTracks">Talk tracks</button><button data-view="roadmap">Roadmap</button></div><div class="export-actions"><button id="campaign-print">${icon("print")}<span>Print</span></button><button id="campaign-markdown">${icon("download")}<span>Markdown</span></button><button id="campaign-json">${icon("download")}<span>JSON</span></button></div></div><div id="campaign-results-content"></div></main></div>`;
 
-  document.getElementById("campaign-form").addEventListener("change", (event) => { state.answers[event.target.name] = event.target.value; renderResults(); });
+  document.getElementById("campaign-form").addEventListener("change", (event) => { const questionIndex = catalog.questions.findIndex((question) => question.id === event.target.name); state.answers[event.target.name] = event.target.value; renderResults(); setActiveQuestion(questionIndex); });
+  document.getElementById("campaign-question-context").addEventListener("click", (event) => { const step = event.target.closest("[data-question-step]")?.dataset.questionStep; if (step) setActiveQuestion(state.activeQuestionIndex + (step === "next" ? 1 : -1)); });
   document.getElementById("campaign-reset").addEventListener("click", () => { state.answers = { ...defaults }; document.getElementById("campaign-form").reset(); catalog.questions.forEach((question) => { document.querySelector(`input[name="${question.id}"][value="${state.answers[question.id]}"]`).checked = true; }); renderResults(); });
   document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => { state.activeView = button.dataset.view; renderResults(); }));
   document.querySelectorAll("[data-audience]").forEach((button) => button.addEventListener("click", () => { state.audience = button.dataset.audience; renderResults(); }));
   document.getElementById("campaign-print").addEventListener("click", () => window.print());
   document.getElementById("campaign-markdown").addEventListener("click", exportMarkdown);
   document.getElementById("campaign-json").addEventListener("click", () => download("security-campaign-assessment.json", JSON.stringify(exportPayload(), null, 2), "application/json"));
+  renderQuestionContext();
   renderResults();
 })();

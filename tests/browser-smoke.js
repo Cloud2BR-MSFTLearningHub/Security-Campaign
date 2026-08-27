@@ -17,6 +17,12 @@ const { chromium } = require("playwright");
     await page.locator(".route-grid").waitFor();
     assert.equal(await page.locator(".route-card").count(), 5);
     assert.equal(await page.locator(".decision-tree .tree-node").count(), 5);
+    await page.locator("#security-campaign-app").waitFor();
+    await page.locator("#campaign-form input[type=radio]").nth(2).check();
+    assert.match(await page.locator("#campaign-question-context").innerText(), /Question 1 of \d+/);
+    assert.equal(await page.locator(".campaign-question.is-active").count(), 1);
+    await page.locator("[data-question-step=next]").click();
+    assert.match(await page.locator("#campaign-question-context").innerText(), /Question 2 of \d+/);
 
     const maps = [
       ["identity-access/", "Identity and Access Map", "Microsoft Entra"],

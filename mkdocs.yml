@@ -46,6 +46,9 @@ extra_css:
 extra_javascript:
   - assets/js/logo-link.js
   - assets/js/external-links.js
+  - assets/js/campaign-data.js
+  - assets/js/recommendation-engine.js
+  - assets/js/campaign-app.js
   - https://unpkg.com/mermaid@10.9.1/dist/mermaid.min.js
   - assets/js/mermaid.js
 extra:

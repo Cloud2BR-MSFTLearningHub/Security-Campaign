@@ -140,6 +140,7 @@
 /* hide the page title and org header above the hero on the campaign page */
 .md-content:has(.campaign-app) h1,
 .md-content:has(.campaign-app) .md-typeset h1 + p + p + p { display: none; }
+.campaign-app + .markmap-frame { display: none; }
 .campaign-app { color: var(--campaign-ink); margin: .75rem 0 3rem; scroll-margin-top: 4.5rem; }
 .eyebrow { color: var(--campaign-cyan); font-size: .65rem; font-weight: 700; letter-spacing: .08em; margin: 0; text-transform: uppercase; }
 .campaign-version { display: none; }
@@ -154,6 +155,7 @@
 .completion-track { background: #e7edf0; border-radius: 999px; height: .3rem; overflow: hidden; }
 .completion-fill { background: var(--campaign-cyan); height: 100%; transition: width .25s ease; width: 0; }
 .completion-text { color: var(--campaign-muted); font-size: .68rem; margin: .4rem 0 .6rem; }
+.campaign-question-context { align-items: center; background: #edf7f6; border-bottom: 1px solid #cbe4e1; border-top: 1px solid #cbe4e1; display: flex; gap: .65rem; justify-content: space-between; padding: .65rem 1.25rem; }.campaign-question-context p { display: grid; gap: .15rem; margin: 0; }.campaign-question-context strong { color: #006b74; font-size: .67rem; }.campaign-question-context span { color: var(--campaign-muted); font-size: .62rem; }.campaign-question-context div { display: inline-flex; }.campaign-question-context button { background: #fff; border: 1px solid var(--campaign-line); color: var(--campaign-ink); cursor: pointer; font: inherit; font-size: .62rem; min-height: 1.9rem; padding: .3rem .5rem; }.campaign-question-context button + button { border-left: 0; }.campaign-question-context button:disabled { color: #9aa8af; cursor: not-allowed; }.campaign-question.is-active { background: #f8fcfc; box-shadow: inset 4px 0 var(--campaign-cyan); }
 .question-group { background: #edf7f6; border-bottom: 1px solid #cbe4e1; border-top: 1px solid #cbe4e1; color: #006b74; font-size: .62rem; font-weight: 700; letter-spacing: .08em; margin-top: .75rem; padding: .5rem 1.25rem; text-transform: uppercase; }
 .campaign-question { border: 0; border-top: 1px solid #edf1f3; margin: 0; padding: 1rem 1.25rem 1.2rem; }
 .campaign-question legend { align-items: center; display: flex; font-size: .78rem; font-weight: 700; gap: .65rem; padding-top: 1rem; }
