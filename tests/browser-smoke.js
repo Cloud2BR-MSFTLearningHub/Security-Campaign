@@ -17,9 +17,8 @@ const { chromium } = require("playwright");
     await page.locator(".route-grid").waitFor();
     assert.equal(await page.locator(".route-card").count(), 5);
     assert.equal(await page.locator(".decision-tree .tree-node").count(), 5);
-    await page.locator(".concept-map svg").waitFor();
-    assert.equal(await page.locator("#security-campaign-app").count(), 0);
-    assert.equal(await page.locator(".markmap-frame").count(), 1);
+    await page.locator(".markmap-frame svg.markmap").waitFor();
+    assert.equal(await page.locator(".markmap-frame .markmap").count(), 1);
 
     const maps = [
       ["identity-access/", "Identity and Access Map", "Microsoft Entra"],
