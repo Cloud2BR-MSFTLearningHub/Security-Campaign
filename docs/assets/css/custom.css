@@ -135,12 +135,7 @@
   --campaign-amber: #a35d00;
   --campaign-coral: #b5483b;
 }
-.md-content:has(.campaign-app) { max-width: none; }
-.md-content:has(.campaign-app) .md-content__inner { margin: 0; }
-/* hide the page title and org header above the hero on the campaign page */
-.md-content:has(.campaign-app) h1,
-.md-content:has(.campaign-app) .md-typeset h1 + p + p + p { display: none; }
-.campaign-app + .markmap-frame { display: none; }
+.concept-map { background: #f8fafc; border: 1px solid #d7e2ec; border-radius: 6px; margin: 1.5rem 0 2.25rem; overflow: auto; padding: 1rem; }.concept-map .mermaid { display: flex; justify-content: center; min-width: 42rem; }.concept-map .nodeLabel { font-family: "IBM Plex Sans", sans-serif; font-size: .75rem; line-height: 1.45; }.concept-map .edgeLabel { background: #f8fafc; }.markmap-frame { display: none; }
 .campaign-app { color: var(--campaign-ink); margin: .75rem 0 3rem; scroll-margin-top: 4.5rem; }
 .eyebrow { color: var(--campaign-cyan); font-size: .65rem; font-weight: 700; letter-spacing: .08em; margin: 0; text-transform: uppercase; }
 .campaign-version { display: none; }
@@ -244,6 +239,7 @@
   .campaign-assessment { max-height: none; position: static; }
 }
 @media screen and (max-width: 44rem) {
+  .concept-map { margin-inline: -.2rem; padding: .65rem; }.concept-map .mermaid { min-width: 34rem; }
   .campaign-version { width: auto; }
   .campaign-options, .metric-grid, .priority-grid, .track-grid { grid-template-columns: 1fr; }
   .result-toolbar, .result-heading { align-items: stretch; flex-direction: column; }

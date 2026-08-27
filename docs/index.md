@@ -12,7 +12,23 @@ Use these decision maps to turn a customer environment into the security convers
 
 ## Security decision map
 
-<div id="security-campaign-app" class="campaign-app"></div>
+<div class="concept-map" markdown>
+```mermaid
+flowchart TB
+    START([Customer security conversation]) --> IDENTITY["Identity and access<br/>Who needs access to services or data?<br/>MFA, Conditional Access, privileged access, workload identities"]
+    IDENTITY --> ENDPOINTS["Devices and endpoint protection<br/>Which devices access company data?<br/>Enrollment, compliance, app protection, threat response"]
+    ENDPOINTS --> CLOUD["Cloud workloads and applications<br/>Which compute, data, APIs, and network services are in scope?<br/>Posture, workload protection, least privilege, telemetry"]
+    CLOUD --> DATA["Data, compliance, and AI<br/>Where is sensitive data and how will agents use it?<br/>Classification, DLP, data boundaries, approvals"]
+    DATA --> OPERATIONS["Detection, response, and security operations<br/>Can the team detect, investigate, contain, and recover?<br/>Signals, ownership, escalation, automation"]
+    OPERATIONS --> ROADMAP([Agreed evidence, owners, and phased security roadmap])
+
+    click IDENTITY href "identity-access/" "Open the identity and access map"
+    click ENDPOINTS href "endpoint-map/" "Open the endpoints and devices map"
+    click CLOUD href "cloud-workload-map/" "Open the cloud workloads map"
+    click DATA href "data-ai-map/" "Open the data and AI map"
+    click OPERATIONS href "security-operations-map/" "Open the security operations map"
+```
+</div>
 
 <div class="markmap-frame" markdown>
 ```markmap
