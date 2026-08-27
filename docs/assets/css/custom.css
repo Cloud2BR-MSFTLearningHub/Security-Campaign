@@ -111,7 +111,7 @@
 .map-target { border-left: 4px solid #006f84; }
 .map-arrow { align-self: center; color: #006f84; font-size: 1.25rem; font-weight: 700; }
 .md-typeset blockquote { border-left-color: #006f84; color: #365263; }
-.markmap-frame { background: #f8fafc; border: 1px solid #d7e2ec; border-radius: 10px; margin: 1.5rem 0 2.25rem; padding: .5rem; }
+.markmap-frame { background: #f8fafc; border: 1px solid #d7e2ec; border-radius: 10px; margin: 1.5rem 0 2.25rem; padding: .5rem; width: 100%; }
 .markmap-frame pre.markmap,
 .markmap-frame .markmap { background: transparent; border: 0; display: block; height: 44rem; margin: 0; padding: 0; width: 100%; }
 .markmap-frame svg.markmap { height: 100%; width: 100%; }
